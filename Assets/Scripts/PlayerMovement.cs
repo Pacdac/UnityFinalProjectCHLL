@@ -11,8 +11,6 @@ public class PlayerMovement : MonoBehaviour
 
     private bool enableMovement = true;
 
-    public static GameObject carriableObject;
-
     [Header("Movement properties")]
     public float crouchSpeed = 3.0f;
     public float walkSpeed = 8.0f;
@@ -34,7 +32,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     private bool isGrounded = false;
-    private GameObject carriedObject;
+    
     public bool IsGrounded { get { return isGrounded; } }
 
     private Vector3 inputForce;
@@ -45,19 +43,24 @@ public class PlayerMovement : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyManager.Carry))
         {
-            if (CameraRaycast.isCarriable && carriedObject == null)
+            if (CameraRaycast.isCarriable && DDOL.carriedObject == null)
             {
-                carriableObject.transform.parent = this.gameObject.transform;
-                carriableObject.GetComponent<Rigidbody>().isKinematic = true;
-                carriableObject.transform.localPosition = new Vector3(0f, 0.5f, 1f);
-                carriedObject = carriableObject;
+                DDOL.carriableObject.transform.parent = this.gameObject.transform;
+                DDOL.carriableObject.GetComponent<Rigidbody>().isKinematic = true;
+                DDOL.carriableObject.transform.localPosition = new Vector3(0f, 0.5f, 1f);
+                DDOL.carriedObject = DDOL.carriableObject;
             }
 
-            else if (carriedObject != null)
+            if (CameraRaycast.isInteractable)
             {
-                carriedObject.transform.SetParent(null);
-                carriedObject.GetComponent<Rigidbody>().isKinematic = false;
-                carriedObject = null;
+                DDOL.interactableObject.GetComponent<InteractableAsset>().onInteraction();
+            }
+
+            else if (DDOL.carriedObject != null)
+            {
+                DDOL.carriedObject.transform.SetParent(null);
+                DDOL.carriedObject.GetComponent<Rigidbody>().isKinematic = false;
+                DDOL.carriedObject = null;
             }
         }
     }
@@ -79,16 +82,16 @@ public class PlayerMovement : MonoBehaviour
             return;
         if (Input.GetKey(KeyManager.Crouch)) {
             inputForce = (transform.forward * vInput + transform.right * hInput).normalized * crouchSpeed;
-            if (carriedObject != null)
-            carriedObject.transform.localPosition = new Vector3(0f, 0f, 1f);
+            if (DDOL.carriedObject != null)
+                DDOL.carriedObject.transform.localPosition = new Vector3(0f, 0f, 1f);
         } else if (Input.GetKey(KeyManager.Run)) {
             inputForce = (transform.forward * vInput + transform.right * hInput).normalized * runSpeed;
-            if (carriedObject != null)
-                carriedObject.transform.localPosition = new Vector3(0f, 0.5f, 1f);
+            if (DDOL.carriedObject != null)
+                DDOL.carriedObject.transform.localPosition = new Vector3(0f, 0.5f, 1f);
         } else {
             inputForce = (transform.forward * vInput + transform.right * hInput).normalized * walkSpeed;
-            if (carriedObject != null)
-                carriedObject.transform.localPosition = new Vector3(0f, 0.5f, 1f);
+            if (DDOL.carriedObject != null)
+                DDOL.carriedObject.transform.localPosition = new Vector3(0f, 0.5f, 1f);
         }
             
 
