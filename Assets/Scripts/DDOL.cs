@@ -5,6 +5,10 @@ using UnityEngine.SceneManagement;
 
 public class DDOL : MonoBehaviour
 {
+
+    public static GameObject carriedObject;
+    public static GameObject carriableObject;
+    public static GameObject interactableObject;
     private void Awake()
     {
         DontDestroyOnLoad(gameObject);
