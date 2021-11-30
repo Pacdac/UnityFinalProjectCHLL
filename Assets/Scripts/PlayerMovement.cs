@@ -51,7 +51,7 @@ public class PlayerMovement : MonoBehaviour
                 DDOL.carriedObject = DDOL.carriableObject;
             }
 
-            if (CameraRaycast.isInteractable)
+            else if (CameraRaycast.isInteractable)
             {
                 DDOL.interactableObject.GetComponent<InteractableAsset>().onInteraction();
             }
