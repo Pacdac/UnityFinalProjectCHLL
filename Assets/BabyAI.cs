@@ -12,6 +12,7 @@ public class BabyAI : MonoBehaviour
     private Transform movePoint;
     private int pointIndex;
     private float speed = 5f;
+    private float rotationSpeed = 200f;
     private int roomIndex = -1; // le mettre dans GameManager maybe
 
     void Start()
@@ -46,7 +47,8 @@ public class BabyAI : MonoBehaviour
     {
         Vector3 position = movePoint.position - transform.position;
         float angle = Mathf.Atan2(position.x, position.z) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(0, angle - 90, 0);
+        //transform.rotation = Quaternion.Euler(0, angle - 90, 0);
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(0, angle - 90, 0), rotationSpeed * Time.deltaTime);
     }
     private void setNextPoint()
     {
