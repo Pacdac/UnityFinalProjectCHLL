@@ -12,6 +12,7 @@ public class BabyAI : MonoBehaviour
     private Transform movePoint;
     private int pointIndex;
     private float speed = 5f;
+    private float rotationSpeed = 200f;
     private int roomIndex = -1; // le mettre dans GameManager maybe
 
     void Start()
@@ -27,10 +28,15 @@ public class BabyAI : MonoBehaviour
         bool hasReachPoint = Vector3.Distance(transform.position, movePoint.position) == 0;
         if (hasReachPoint)
         {
+            unactiveDanger(); // pourrait mettre une variable pour désactiver que si danger, mais osef de désactiver les autres points
             setNextPoint();
         }
     }
 
+    private void unactiveDanger()
+    {
+        movePoint.gameObject.SetActive(false);
+    }
 
     private void move()
     {
@@ -41,7 +47,8 @@ public class BabyAI : MonoBehaviour
     {
         Vector3 position = movePoint.position - transform.position;
         float angle = Mathf.Atan2(position.x, position.z) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(0, angle - 90, 0);
+        //transform.rotation = Quaternion.Euler(0, angle - 90, 0);
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(0, angle - 90, 0), rotationSpeed * Time.deltaTime);
     }
     private void setNextPoint()
     {
@@ -70,7 +77,6 @@ public class BabyAI : MonoBehaviour
 
         int randomDangerIndex = Random.Range(1, nbDanger);
         movePoint = dangerPoints[randomDangerIndex];
-        dangerPoints[randomDangerIndex].gameObject.SetActive(false);
     }
 
     private void getNextRoomPoints()
