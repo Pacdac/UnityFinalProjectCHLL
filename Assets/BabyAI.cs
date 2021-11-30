@@ -27,10 +27,15 @@ public class BabyAI : MonoBehaviour
         bool hasReachPoint = Vector3.Distance(transform.position, movePoint.position) == 0;
         if (hasReachPoint)
         {
+            unactiveDanger(); // pourrait mettre une variable pour désactiver que si danger, mais osef de désactiver les autres points
             setNextPoint();
         }
     }
 
+    private void unactiveDanger()
+    {
+        movePoint.gameObject.SetActive(false);
+    }
 
     private void move()
     {
@@ -70,7 +75,6 @@ public class BabyAI : MonoBehaviour
 
         int randomDangerIndex = Random.Range(1, nbDanger);
         movePoint = dangerPoints[randomDangerIndex];
-        dangerPoints[randomDangerIndex].gameObject.SetActive(false);
     }
 
     private void getNextRoomPoints()
