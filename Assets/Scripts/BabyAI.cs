@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class BabyAI : MonoBehaviour
 {
     // Suis les points de "paths", puis va chercher un danger random dans la
-    [SerializeField] private GameObject paths;
+    [SerializeField] private GameObject fixedPoints;
     [SerializeField] private GameObject danger;
+    [SerializeField] private NavMeshAgent agent;
     private Transform[] pathPoints;
     private Transform[] dangerPoints;
     private Transform movePoint;
@@ -22,10 +24,10 @@ public class BabyAI : MonoBehaviour
 
     void Update()
     {
-        move();
-        rotate();
+        //move();
 
-        bool hasReachPoint = Vector3.Distance(transform.position, movePoint.position) == 0;
+        bool hasReachPoint = agent.remainingDistance == 0;
+        //Debug.Log(transform.position + " -------- " + movePoint.position);
         if (hasReachPoint)
         {
             unactiveDanger(); // pourrait mettre une variable pour désactiver que si danger, mais osef de désactiver les autres points
@@ -40,16 +42,9 @@ public class BabyAI : MonoBehaviour
 
     private void move()
     {
-        transform.position = Vector3.MoveTowards(transform.position, movePoint.position, speed * Time.deltaTime);
+        agent.SetDestination(movePoint.position);
     }
 
-    private void rotate()
-    {
-        Vector3 position = movePoint.position - transform.position;
-        float angle = Mathf.Atan2(position.x, position.z) * Mathf.Rad2Deg;
-        //transform.rotation = Quaternion.Euler(0, angle - 90, 0);
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(0, angle - 90, 0), rotationSpeed * Time.deltaTime);
-    }
     private void setNextPoint()
     {
         pointIndex++;
@@ -81,18 +76,18 @@ public class BabyAI : MonoBehaviour
 
     private void getNextRoomPoints()
     {
-        int nbRooms = paths.transform.childCount;
+        int nbRooms = fixedPoints.transform.childCount;
         bool noMoreRoom = roomIndex + 1 >= nbRooms;
         if (noMoreRoom)
         {
-            Debug.Log("End of the path");
+            //Debug.Log("End of the path");
             return;
         }
 
         roomIndex++;
         Debug.Log("Room " + roomIndex);
 
-        Transform roomPathPoints = paths.transform.GetChild(roomIndex);
+        Transform roomPathPoints = fixedPoints.transform.GetChild(roomIndex);
         pathPoints = roomPathPoints.GetComponentsInChildren<Transform>();
         pointIndex = 1; // start at index 1, cause index 0 = the parent itself
         movePoint = pathPoints[pointIndex];
