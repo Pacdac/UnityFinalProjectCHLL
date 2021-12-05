@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
+
 
 public class BabyAI : MonoBehaviour
 {
@@ -30,7 +32,7 @@ public class BabyAI : MonoBehaviour
         //Debug.Log(transform.position + " -------- " + movePoint.position);
         if (hasReachPoint)
         {
-            unactiveDanger(); // pourrait mettre une variable pour désactiver que si danger, mais osef de désactiver les autres points
+            unactiveDanger(); // pourrait mettre une variable pour dï¿½sactiver que si danger, mais osef de dï¿½sactiver les autres points
             setNextPoint();
         }
     }
@@ -92,4 +94,5 @@ public class BabyAI : MonoBehaviour
         pointIndex = 1; // start at index 1, cause index 0 = the parent itself
         movePoint = pathPoints[pointIndex];
     }
+    
 }
