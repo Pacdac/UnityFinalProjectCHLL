@@ -63,7 +63,8 @@ public class BabyInteraction : MonoBehaviour
         dangerBar.gameObject.SetActive(true);
         if (currentTime < maxTime)
         {
-            currentTime += Time.deltaTime / 10;
+            currentTime += Time.deltaTime;
+            DDOL.timeInDanger += Time.deltaTime;
             dangerBar.SetTime(currentTime);
         }
 
