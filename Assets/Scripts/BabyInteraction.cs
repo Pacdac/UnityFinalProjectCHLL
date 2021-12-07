@@ -24,12 +24,26 @@ public class BabyInteraction : MonoBehaviour
         Collider[] collidersInRadius = Physics.OverlapSphere(transform.position, lookRadius);
         checkDeath();
 
+        Transform currentDanger = GameManager.GetInstance().CurrentDanger;
+        bool isStillInRange = false;
+
         foreach (Collider collider in collidersInRadius)
         {
             if ((collider.tag == "Interactable" && collider.GetComponent<InteractableAsset>().isOpen) || collider.tag == "Carriable" && !collider.GetComponent<Rigidbody>().isKinematic)
             {
                 dangerous.Add(collider);
             }
+
+            if (collider.GetComponent<Transform>() == currentDanger)
+            {
+                isStillInRange = true;
+            }
+        }
+        
+        if (!isStillInRange)
+        {
+            resetTimer();
+            return;
         }
 
         if (dangerous.Count > 0)

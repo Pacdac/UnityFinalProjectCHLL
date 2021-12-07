@@ -18,35 +18,40 @@ public class BabyAI : MonoBehaviour
     private float speed = 5f;
     private float rotationSpeed = 200f;
     private int roomIndex = -1; // le mettre dans GameManager maybe
+    private int movePointType; // 0 : path, 1 : danger
 
     void Start()
     {
         getNextRoomPoints();
+        move();
     }
 
     void Update()
     {
-        move();
-
         bool hasReachPoint = agent.remainingDistance <= agent.stoppingDistance;
-        
         if (hasReachPoint)
         {
-            waitForDangerToBeRemoved();
+            if (movePointType == 1)
+            {
+                waitForDangerToBeRemoved();
+                return;
+            }
+            setNextPoint();
         }
+
+        move();
     }
 
-    private void unactiveDanger()
-    {
-        movePoint.gameObject.SetActive(false);
-    }
 
     private void waitForDangerToBeRemoved()
     {
         bool isFacingDanger = GameManager.GetInstance().IsFacingDanger;
+        GameManager.GetInstance().CurrentDanger = movePoint;
+        
         if (!isFacingDanger)
         {
             //movePoint.gameObject.SetActive(false);
+            Debug.Log(isFacingDanger);
             setNextPoint();
         }
     }
@@ -60,6 +65,7 @@ public class BabyAI : MonoBehaviour
     {
         pointIndex++;
         bool noMorePathPoints = pointIndex >= pathPoints.Length;
+        Debug.Log(noMorePathPoints);
         if (noMorePathPoints)
         {
             lookForDanger();
@@ -83,6 +89,8 @@ public class BabyAI : MonoBehaviour
 
         int randomDangerIndex = Random.Range(1, nbDanger);
         movePoint = dangerPoints[randomDangerIndex];
+        movePointType = 1;
+        agent.stoppingDistance = 2;
     }
 
     private void getNextRoomPoints()
@@ -102,6 +110,9 @@ public class BabyAI : MonoBehaviour
         pathPoints = roomPathPoints.GetComponentsInChildren<Transform>();
         pointIndex = 1; // start at index 1, cause index 0 = the parent itself
         movePoint = pathPoints[pointIndex];
+
+        movePointType = 0;
+        agent.stoppingDistance = 0;
     }
     
 }

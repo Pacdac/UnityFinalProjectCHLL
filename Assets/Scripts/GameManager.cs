@@ -6,7 +6,7 @@ public class GameManager
 {
     private static GameManager _instance;
     private bool isFacingDanger = false;
-
+    private Transform currentDanger;
     private GameManager()
     {
     }
@@ -23,6 +23,12 @@ public class GameManager
     {
         get => isFacingDanger;
         set => isFacingDanger = value;
+    }
+
+    public Transform CurrentDanger
+    {
+        get => currentDanger;
+        set => currentDanger = value;
     }
 
 }
