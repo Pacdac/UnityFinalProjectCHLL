@@ -23,7 +23,6 @@ public class BabyAI : MonoBehaviour
     void Update()
     {
         move();
-<<<<<<< Updated upstream:Assets/BabyAI.cs
         rotate();
 
         bool hasReachPoint = Vector3.Distance(transform.position, movePoint.position) == 0;
@@ -31,25 +30,16 @@ public class BabyAI : MonoBehaviour
         {
             unactiveDanger(); // pourrait mettre une variable pour désactiver que si danger, mais osef de désactiver les autres points
             setNextPoint();
-=======
-
-        bool hasReachPoint = agent.remainingDistance == 0;
-        Debug.Log(hasReachPoint + "-----" + movePoint.position + "-" + agent.remainingDistance);
-        if (hasReachPoint)
-        {
-            waitForDangerToBeRemoved();
->>>>>>> Stashed changes:Assets/Scripts/BabyAI.cs
         }
+    }
+
+    private void unactiveDanger()
+    {
+        movePoint.gameObject.SetActive(false);
     }
 
     private void move()
     {
-        agent.SetDestination(movePoint.position);
-    }
-
-    private void waitForDangerToBeRemoved()
-    {
-<<<<<<< Updated upstream:Assets/BabyAI.cs
         transform.position = Vector3.MoveTowards(transform.position, movePoint.position, speed * Time.deltaTime);
     }
 
@@ -60,18 +50,6 @@ public class BabyAI : MonoBehaviour
         //transform.rotation = Quaternion.Euler(0, angle - 90, 0);
         transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(0, angle - 90, 0), rotationSpeed * Time.deltaTime);
     }
-=======
-        bool isFacingDanger = GameManager.GetInstance().IsFacingDanger;
-        if (!isFacingDanger)
-        {
-            movePoint.gameObject.SetActive(false);
-            setNextPoint();
-        }
-    }
-
-
-
->>>>>>> Stashed changes:Assets/Scripts/BabyAI.cs
     private void setNextPoint()
     {
         pointIndex++;
