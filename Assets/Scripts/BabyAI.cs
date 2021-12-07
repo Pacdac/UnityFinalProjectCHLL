@@ -26,20 +26,28 @@ public class BabyAI : MonoBehaviour
 
     void Update()
     {
-        //move();
+        move();
 
         bool hasReachPoint = agent.remainingDistance == 0;
-        //Debug.Log(transform.position + " -------- " + movePoint.position);
         if (hasReachPoint)
         {
-            unactiveDanger(); // pourrait mettre une variable pour d�sactiver que si danger, mais osef de d�sactiver les autres points
-            setNextPoint();
+            waitForDangerToBeRemoved();
         }
     }
 
     private void unactiveDanger()
     {
         movePoint.gameObject.SetActive(false);
+    }
+
+    private void waitForDangerToBeRemoved()
+    {
+        bool isFacingDanger = GameManager.GetInstance().IsFacingDanger;
+        if (!isFacingDanger)
+        {
+            movePoint.gameObject.SetActive(false);
+            setNextPoint();
+        }
     }
 
     private void move()

@@ -34,10 +34,12 @@ public class BabyInteraction : MonoBehaviour
 
         if (dangerous.Count > 0)
         {
+            GameManager.GetInstance().IsFacingDanger = true;
             startTimer();
         }
         else if (dangerous.Count == 0 && !isDead)
         {
+            GameManager.GetInstance().IsFacingDanger = false;
             resetTimer();
         }
     }
@@ -47,7 +49,7 @@ public class BabyInteraction : MonoBehaviour
         dangerBar.gameObject.SetActive(true);
         if (currentTime < maxTime)
         {
-            currentTime += Time.deltaTime;
+            currentTime += Time.deltaTime / 10;
             dangerBar.SetTime(currentTime);
         }
 
