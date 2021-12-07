@@ -19,7 +19,7 @@ public class CameraRaycast : MonoBehaviour
         isInteractable = false;
 
         if (Physics.Raycast(transform.position, fwd, out hit, 2.5f))
-            Debug.Log("Tag: " + hit.collider.gameObject.tag);      
+            //Debug.Log("Tag: " + hit.collider.gameObject.tag);      
 
         if (Physics.Raycast(transform.position, fwd, out hit, 2.5f) && hit.collider.gameObject.tag == "Carriable")
         {

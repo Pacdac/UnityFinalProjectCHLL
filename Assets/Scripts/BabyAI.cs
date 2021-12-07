@@ -28,7 +28,8 @@ public class BabyAI : MonoBehaviour
     {
         move();
 
-        bool hasReachPoint = agent.remainingDistance == 0;
+        bool hasReachPoint = agent.remainingDistance <= agent.stoppingDistance;
+        
         if (hasReachPoint)
         {
             waitForDangerToBeRemoved();
@@ -45,7 +46,7 @@ public class BabyAI : MonoBehaviour
         bool isFacingDanger = GameManager.GetInstance().IsFacingDanger;
         if (!isFacingDanger)
         {
-            movePoint.gameObject.SetActive(false);
+            //movePoint.gameObject.SetActive(false);
             setNextPoint();
         }
     }
