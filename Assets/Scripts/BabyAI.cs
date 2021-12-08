@@ -18,43 +18,34 @@ public class BabyAI : MonoBehaviour
     private float speed = 5f;
     private float rotationSpeed = 200f;
     private int roomIndex = -1; // le mettre dans GameManager maybe
-    private int movePointType; // 0 : path, 1 : danger
+    int movePointType;
 
     void Start()
     {
         getNextRoomPoints();
-        move();
     }
 
     void Update()
     {
+        checkIfHasReachedPoint();
+    }
+
+    private void checkIfHasReachedPoint()
+    {
         bool hasReachPoint = agent.remainingDistance <= agent.stoppingDistance;
         if (hasReachPoint)
         {
-            if (movePointType == 1)
+            bool isMovePointADanger = movePointType == 1;
+            bool isDangerInRange = GameManager.GetInstance().IsDangerInRange;
+            if (isMovePointADanger && isDangerInRange)
             {
-                waitForDangerToBeRemoved();
                 return;
             }
             setNextPoint();
         }
-
         move();
     }
 
-
-    private void waitForDangerToBeRemoved()
-    {
-        bool isFacingDanger = GameManager.GetInstance().IsFacingDanger;
-        GameManager.GetInstance().CurrentDanger = movePoint;
-        
-        if (!isFacingDanger)
-        {
-            //movePoint.gameObject.SetActive(false);
-            Debug.Log(isFacingDanger);
-            setNextPoint();
-        }
-    }
 
     private void move()
     {
@@ -65,7 +56,6 @@ public class BabyAI : MonoBehaviour
     {
         pointIndex++;
         bool noMorePathPoints = pointIndex >= pathPoints.Length;
-        Debug.Log(noMorePathPoints);
         if (noMorePathPoints)
         {
             lookForDanger();
@@ -91,6 +81,8 @@ public class BabyAI : MonoBehaviour
         movePoint = dangerPoints[randomDangerIndex];
         movePointType = 1;
         agent.stoppingDistance = 2;
+
+        GameManager.GetInstance().CurrentDanger = movePoint;
     }
 
     private void getNextRoomPoints()
@@ -110,9 +102,6 @@ public class BabyAI : MonoBehaviour
         pathPoints = roomPathPoints.GetComponentsInChildren<Transform>();
         pointIndex = 1; // start at index 1, cause index 0 = the parent itself
         movePoint = pathPoints[pointIndex];
-
-        movePointType = 0;
-        agent.stoppingDistance = 0;
     }
     
 }

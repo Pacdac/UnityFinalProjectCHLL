@@ -25,7 +25,7 @@ public class BabyInteraction : MonoBehaviour
         checkDeath();
 
         Transform currentDanger = GameManager.GetInstance().CurrentDanger;
-        bool isStillInRange = false;
+        bool isDangerInRange = false;
 
         foreach (Collider collider in collidersInRadius)
         {
@@ -36,26 +36,26 @@ public class BabyInteraction : MonoBehaviour
 
             if (collider.GetComponent<Transform>() == currentDanger)
             {
-                isStillInRange = true;
+                isDangerInRange = true;
             }
         }
-        
-        if (!isStillInRange)
+        GameManager.GetInstance().IsDangerInRange = isDangerInRange;
+        if (isDangerInRange)
         {
+            startTimer();
+        }
+        else { 
             resetTimer();
-            return;
         }
 
-        if (dangerous.Count > 0)
+        /*if (dangerous.Count > 0)
         {
-            GameManager.GetInstance().IsFacingDanger = true;
             startTimer();
         }
         else if (dangerous.Count == 0 && !isDead)
         {
-            GameManager.GetInstance().IsFacingDanger = false;
             resetTimer();
-        }
+        }*/
     }
 
     private void startTimer()
