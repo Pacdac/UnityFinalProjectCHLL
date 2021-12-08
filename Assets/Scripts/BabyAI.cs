@@ -26,29 +26,25 @@ public class BabyAI : MonoBehaviour
 
     void Update()
     {
-        move();
+        checkIfHasReachedPoint();
+    }
 
-        bool hasReachPoint = agent.remainingDistance == 0;
+    private void checkIfHasReachedPoint()
+    {
+        bool hasReachPoint = agent.remainingDistance <= agent.stoppingDistance;
         if (hasReachPoint)
         {
-            waitForDangerToBeRemoved();
-        }
-    }
-
-    private void unactiveDanger()
-    {
-        movePoint.gameObject.SetActive(false);
-    }
-
-    private void waitForDangerToBeRemoved()
-    {
-        bool isFacingDanger = GameManager.GetInstance().IsFacingDanger;
-        if (!isFacingDanger)
-        {
-            movePoint.gameObject.SetActive(false);
+            bool isMovePointADanger = movePointType == 1;
+            bool isDangerInRange = GameManager.GetInstance().IsDangerInRange;
+            if (isMovePointADanger && isDangerInRange)
+            {
+                return;
+            }
             setNextPoint();
         }
+        move();
     }
+
 
     private void move()
     {
@@ -82,6 +78,10 @@ public class BabyAI : MonoBehaviour
 
         int randomDangerIndex = Random.Range(1, nbDanger);
         movePoint = dangerPoints[randomDangerIndex];
+        movePointType = 1;
+        agent.stoppingDistance = 2;
+
+        GameManager.GetInstance().CurrentDanger = movePoint;
     }
 
     private void getNextRoomPoints()

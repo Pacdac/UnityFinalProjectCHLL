@@ -24,24 +24,38 @@ public class BabyInteraction : MonoBehaviour
         Collider[] collidersInRadius = Physics.OverlapSphere(transform.position, lookRadius);
         checkDeath();
 
+        Transform currentDanger = GameManager.GetInstance().CurrentDanger;
+        bool isDangerInRange = false;
+
         foreach (Collider collider in collidersInRadius)
         {
             if ((collider.tag == "Interactable" && collider.GetComponent<InteractableAsset>().isOpen) || collider.tag == "Carriable" && !collider.GetComponent<Rigidbody>().isKinematic)
             {
                 dangerous.Add(collider);
             }
+
+            if (collider.GetComponent<Transform>() == currentDanger)
+            {
+                isDangerInRange = true;
+            }
+        }
+        GameManager.GetInstance().IsDangerInRange = isDangerInRange;
+        if (isDangerInRange)
+        {
+            startTimer();
+        }
+        else { 
+            resetTimer();
         }
 
-        if (dangerous.Count > 0)
+        /*if (dangerous.Count > 0)
         {
-            GameManager.GetInstance().IsFacingDanger = true;
             startTimer();
         }
         else if (dangerous.Count == 0 && !isDead)
         {
-            GameManager.GetInstance().IsFacingDanger = false;
             resetTimer();
-        }
+        }*/
     }
 
     private void startTimer()
@@ -49,7 +63,7 @@ public class BabyInteraction : MonoBehaviour
         dangerBar.gameObject.SetActive(true);
         if (currentTime < maxTime)
         {
-            currentTime += Time.deltaTime / 10;
+            currentTime += Time.deltaTime / 5;
             dangerBar.SetTime(currentTime);
         }
 

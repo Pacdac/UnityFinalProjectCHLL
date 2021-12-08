@@ -5,8 +5,8 @@ using UnityEngine;
 public class GameManager
 {
     private static GameManager _instance;
-    private bool isFacingDanger = false;
-
+    private bool isDangerInRange = false;
+    private Transform currentDanger;
     private GameManager()
     {
     }
@@ -19,10 +19,15 @@ public class GameManager
         }
         return _instance;
     }
-    public bool IsFacingDanger
+    public bool IsDangerInRange
     {
-        get => isFacingDanger;
-        set => isFacingDanger = value;
+        get => isDangerInRange;
+        set => isDangerInRange = value;
     }
 
+    public Transform CurrentDanger
+    {
+        get => currentDanger;
+        set => currentDanger = value;
+    }
 }
