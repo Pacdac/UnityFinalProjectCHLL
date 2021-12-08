@@ -18,6 +18,7 @@ public class BabyAI : MonoBehaviour
     private float speed = 5f;
     private float rotationSpeed = 200f;
     private int roomIndex = -1; // le mettre dans GameManager maybe
+    int movePointType;
 
     void Start()
     {
