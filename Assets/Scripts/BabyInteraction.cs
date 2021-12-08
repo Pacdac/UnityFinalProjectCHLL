@@ -31,14 +31,14 @@ public class BabyInteraction : MonoBehaviour
         {
             if ((collider.tag == "Interactable" && collider.GetComponent<InteractableAsset>().isOpen) || collider.tag == "Carriable" && !collider.GetComponent<Rigidbody>().isKinematic)
             {
-                dangerous.Add(collider);
-            }
-
-            if (collider.GetComponent<Transform>() == currentDanger)
-            {
-                isDangerInRange = true;
+                //dangerous.Add(collider);
+                if (collider.GetComponent<Transform>() == currentDanger)
+                {
+                    isDangerInRange = true;
+                }
             }
         }
+
         GameManager.GetInstance().IsDangerInRange = isDangerInRange;
         if (isDangerInRange)
         {
