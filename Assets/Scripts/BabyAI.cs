@@ -36,7 +36,7 @@ public class BabyAI : MonoBehaviour
         if (hasReachPoint)
         {
             bool isMovePointADanger = movePointType == 1;
-            bool isDangerInRange = GameManager.GetInstance().IsDangerInRange;
+            bool isDangerInRange = GameManager.IsDangerInRange;
             if (isMovePointADanger && isDangerInRange)
             {
                 return;
@@ -81,8 +81,7 @@ public class BabyAI : MonoBehaviour
         movePoint = dangerPoints[randomDangerIndex];
         movePointType = 1;
         agent.stoppingDistance = 2;
-
-        GameManager.GetInstance().CurrentDanger = movePoint;
+        GameManager.CurrentDanger = movePoint;
     }
 
     private void getNextRoomPoints()

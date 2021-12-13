@@ -21,41 +21,50 @@ public class BabyInteraction : MonoBehaviour
     void Update()
     {
         List<Collider> dangerous = new List<Collider>();
+        RaycastHit hit;
         Collider[] collidersInRadius = Physics.OverlapSphere(transform.position, lookRadius);
+        GameManager.timeAlive += Time.deltaTime;
         checkDeath();
 
-        Transform currentDanger = GameManager.GetInstance().CurrentDanger;
+        Transform currentDanger = GameManager.CurrentDanger;
         bool isDangerInRange = false;
 
         foreach (Collider collider in collidersInRadius)
         {
             if ((collider.tag == "Interactable" && collider.GetComponent<InteractableAsset>().isOpen) || collider.tag == "Carriable" && !collider.GetComponent<Rigidbody>().isKinematic)
             {
-                //dangerous.Add(collider);
-                if (collider.GetComponent<Transform>() == currentDanger)
+
+                if (Physics.Raycast(transform.position, collider.transform.position - transform.position, out hit, Mathf.Infinity) && hit.collider.gameObject.tag == "Carriable")
                 {
-                    isDangerInRange = true;
+
+                    dangerous.Add(collider);
+                    /*if (collider.GetComponent<Transform>() == currentDanger)
+                    {
+                        isDangerInRange = true;
+                    }*/
                 }
+                //dangerous.Add(collider);
+                
             }
         }
 
-        GameManager.GetInstance().IsDangerInRange = isDangerInRange;
+        /*GameManager.IsDangerInRange = isDangerInRange;
         if (isDangerInRange)
         {
             startTimer();
         }
         else { 
             resetTimer();
-        }
+        }*/
 
-        /*if (dangerous.Count > 0)
+        if (dangerous.Count > 0)
         {
             startTimer();
         }
         else if (dangerous.Count == 0 && !isDead)
         {
             resetTimer();
-        }*/
+        }
     }
 
     private void startTimer()
@@ -64,7 +73,7 @@ public class BabyInteraction : MonoBehaviour
         if (currentTime < maxTime)
         {
             currentTime += Time.deltaTime;
-            DDOL.timeInDanger += Time.deltaTime;
+            GameManager.timeInDanger += Time.deltaTime;
             dangerBar.SetTime(currentTime);
         }
 
@@ -82,7 +91,7 @@ public class BabyInteraction : MonoBehaviour
         if (currentTime > maxTime)
         {
             gameObject.GetComponent<Renderer>().material.SetColor("_Color", Color.red);
-            DDOL.LoadNextLevel();
+            GameManager.LoadNextLevel();
         }
     }
 }

@@ -4156,6 +4156,7 @@ GameObject:
   - component: {fileID: 1225533160}
   - component: {fileID: 1225533165}
   - component: {fileID: 1225533166}
+  - component: {fileID: 1225533167}
   m_Layer: 6
   m_Name: Baby
   m_TagString: Untagged
@@ -4270,7 +4271,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lookRadius: 5
-  maxTime: 25
+  maxTime: 3
   dangerBar: {fileID: 1337901791}
 --- !u!195 &1225533166
 NavMeshAgent:
@@ -4294,6 +4295,19 @@ NavMeshAgent:
   m_BaseOffset: 0.5
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &1225533167
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1225533159}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1b5061a94ed5794b99981f84f74c87b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 1591332693}
 --- !u!1 &1225837882
 GameObject:
   m_ObjectHideFlags: 0
@@ -5558,9 +5572,9 @@ GameObject:
   - component: {fileID: 1591332696}
   - component: {fileID: 1591332695}
   - component: {fileID: 1591332694}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7222,7 +7236,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1982253500}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: Ground Checker
   m_TagString: Untagged
   m_Icon: {fileID: -5487077368411116049, guid: 0000000000000000d000000000000000, type: 0}
