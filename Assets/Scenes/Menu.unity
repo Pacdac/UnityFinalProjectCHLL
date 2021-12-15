@@ -477,7 +477,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 406356070}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8127142a15b0f624eb95488a99d8c335, type: 3}
+  m_Script: {fileID: 11500000, guid: 3287a14ac7602cc488c3ae7c22468800, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &470992307
@@ -1259,7 +1259,7 @@ MonoBehaviour:
   m_text: must live!
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b8abbd31f8ed7c148a543792b20120a0, type: 2}
-  m_sharedMaterial: {fileID: 8952135603460207707, guid: b8abbd31f8ed7c148a543792b20120a0, type: 2}
+  m_sharedMaterial: {fileID: 1493790860744815506, guid: b8abbd31f8ed7c148a543792b20120a0, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1626,7 +1626,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 406356072}
-        m_TargetAssemblyTypeName: DDOL, Assembly-CSharp
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
         m_MethodName: LoadNextLevel
         m_Mode: 1
         m_Arguments:

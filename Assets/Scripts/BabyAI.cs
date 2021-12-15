@@ -18,6 +18,7 @@ public class BabyAI : MonoBehaviour
     private float speed = 5f;
     private float rotationSpeed = 200f;
     private int roomIndex = -1; // le mettre dans GameManager maybe
+    int movePointType;
 
     void Start()
     {
@@ -26,21 +27,25 @@ public class BabyAI : MonoBehaviour
 
     void Update()
     {
-        //move();
+        checkIfHasReachedPoint();
+    }
 
-        bool hasReachPoint = agent.remainingDistance == 0;
-        //Debug.Log(transform.position + " -------- " + movePoint.position);
+    private void checkIfHasReachedPoint()
+    {
+        bool hasReachPoint = agent.remainingDistance <= agent.stoppingDistance;
         if (hasReachPoint)
         {
-            unactiveDanger(); // pourrait mettre une variable pour d�sactiver que si danger, mais osef de d�sactiver les autres points
+            bool isMovePointADanger = movePointType == 1;
+            bool isDangerInRange = GameManager.IsDangerInRange;
+            if (isMovePointADanger && isDangerInRange)
+            {
+                return;
+            }
             setNextPoint();
         }
+        move();
     }
 
-    private void unactiveDanger()
-    {
-        movePoint.gameObject.SetActive(false);
-    }
 
     private void move()
     {
@@ -74,6 +79,9 @@ public class BabyAI : MonoBehaviour
 
         int randomDangerIndex = Random.Range(1, nbDanger);
         movePoint = dangerPoints[randomDangerIndex];
+        movePointType = 1;
+        agent.stoppingDistance = 2;
+        GameManager.CurrentDanger = movePoint;
     }
 
     private void getNextRoomPoints()

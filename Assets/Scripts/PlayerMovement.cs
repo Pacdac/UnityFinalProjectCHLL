@@ -42,24 +42,24 @@ public class PlayerMovement : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyManager.Carry))
         {
-            if (CameraRaycast.isCarriable && DDOL.carriedObject == null)
+            if (CameraRaycast.isCarriable && GameManager.carriedObject == null)
             {
-                DDOL.carriableObject.transform.parent = this.gameObject.transform;
-                DDOL.carriableObject.GetComponent<Rigidbody>().isKinematic = true;
-                DDOL.carriableObject.transform.localPosition = new Vector3(0f, 0.5f, 1f);
-                DDOL.carriedObject = DDOL.carriableObject;
+                GameManager.carriableObject.transform.parent = this.gameObject.transform;
+                GameManager.carriableObject.GetComponent<Rigidbody>().isKinematic = true;
+                GameManager.carriableObject.transform.localPosition = new Vector3(0f, 0.5f, 1f);
+                GameManager.carriedObject = GameManager.carriableObject;
             }
 
             else if (CameraRaycast.isInteractable)
             {
-                DDOL.interactableObject.GetComponent<InteractableAsset>().onInteraction();
+                GameManager.interactableObject.GetComponent<InteractableAsset>().onInteraction();
             }
 
-            else if (DDOL.carriedObject != null)
+            else if (GameManager.carriedObject != null)
             {
-                DDOL.carriedObject.transform.SetParent(null);
-                DDOL.carriedObject.GetComponent<Rigidbody>().isKinematic = false;
-                DDOL.carriedObject = null;
+                GameManager.carriedObject.transform.SetParent(null);
+                GameManager.carriedObject.GetComponent<Rigidbody>().isKinematic = false;
+                GameManager.carriedObject = null;
             }
         }
     }
@@ -81,16 +81,16 @@ public class PlayerMovement : MonoBehaviour
             return;
         if (Input.GetKey(KeyManager.Crouch)) {
             inputForce = (transform.forward * vInput + transform.right * hInput).normalized * crouchSpeed;
-            if (DDOL.carriedObject != null)
-                DDOL.carriedObject.transform.localPosition = new Vector3(0f, 0f, 1f);
+            if (GameManager.carriedObject != null)
+                GameManager.carriedObject.transform.localPosition = new Vector3(0f, 0f, 1f);
         } else if (Input.GetKey(KeyManager.Run)) {
             inputForce = (transform.forward * vInput + transform.right * hInput).normalized * runSpeed;
-            if (DDOL.carriedObject != null)
-                DDOL.carriedObject.transform.localPosition = new Vector3(0f, 0.5f, 1f);
+            if (GameManager.carriedObject != null)
+                GameManager.carriedObject.transform.localPosition = new Vector3(0f, 0.5f, 1f);
         } else {
             inputForce = (transform.forward * vInput + transform.right * hInput).normalized * walkSpeed;
-            if (DDOL.carriedObject != null)
-                DDOL.carriedObject.transform.localPosition = new Vector3(0f, 0.5f, 1f);
+            if (GameManager.carriedObject != null)
+                GameManager.carriedObject.transform.localPosition = new Vector3(0f, 0.5f, 1f);
         }
             
 
