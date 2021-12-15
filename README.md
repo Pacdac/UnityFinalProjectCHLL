@@ -7,4 +7,5 @@ https://assetstore.unity.com/packages/3d/props/food-and-kitchen-props-pack-85050
 https://assetstore.unity.com/packages/3d/food-pack-3d-microgames-add-ons-163295
 https://assetstore.unity.com/packages/3d/props/furniture/glassofcoins-furniture-asset-pack-200983
 https://assetstore.unity.com/packages/3d/props/office-supplies-low-poly-105519
-  
+https://assetstore.unity.com/packages/tools/particles-effects/breakable-windows-110383
+https://assetstore.unity.com/packages/3d/props/furniture/toon-furniture-88740
