@@ -5,8 +5,8 @@ using UnityEngine;
 
     public class Save : MonoBehaviour
     {
-        public static float bestTimeAlive = 10;
-        public static float bestScore = 10;
+        public static float bestTimeAlive;
+        public static float bestScore;
 
     private void Start()
     {

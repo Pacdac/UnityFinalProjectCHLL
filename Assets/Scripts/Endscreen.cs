@@ -21,7 +21,8 @@ public class Endscreen : MonoBehaviour
         SetDangerTime(GameManager.timeInDanger);
         SetVisionTime(GameManager.timeInVision);
         SetScore(GameManager.ScoreCalculation());
-        SetBestScore(Save.bestScore);
+        if (GameManager.ScoreCalculation() > Save.bestScore) SetBestScore(GameManager.ScoreCalculation());
+        else SetBestScore(Save.bestScore);
     }
 
     public void SetLifeTime(float time)
