@@ -38,4 +38,9 @@ public class GameManager : MonoBehaviour
         set => currentDanger = value;
     }
 
+    public static float ScoreCalculation()
+    {
+        return Mathf.Floor(timeAlive * 10 + timeInVision * 20 - timeInDanger * 5);  
+    }
+
 }
