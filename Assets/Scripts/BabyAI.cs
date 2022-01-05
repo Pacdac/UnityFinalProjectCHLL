@@ -19,40 +19,50 @@ public class BabyAI : MonoBehaviour
     private float rotationSpeed = 200f;
     private int roomIndex = -1; // le mettre dans GameManager maybe
     int movePointType;
-    private Transform tempMovePoint = null;
+    private Transform tempMovePoint;
 
     private Collider currentDanger = null;
 
     void Start()
     {
         GetNextRoomPoints();
-
+        movePoint = pathPoints[pointIndex];
     }
 
     void Update()
     {
         MoveToPoint();
-        GoTowardsDangerIfInRange();
+        SetMoveToDangerIfInRange();
 
-        // checkIfHasReachedPoint();
+        SetNextPointIfHasReached();
     }
 
     private void MoveToPoint()
     {
-        agent.SetDestination(movePoint.position);
+        
+        if (movePoint) // car update appelé avant le start (?!), donc movePoint null 
+        {
+            agent.SetDestination(movePoint.position);
+        } else {
+            movePoint = gameObject.transform; // pour dire de mettre un truc et éviter erreurs
+        }
+        
     }
 
-    private void GoTowardsDangerIfInRange()
+    private void SetMoveToDangerIfInRange()
     {
         List<Collider> dangers = GameManager.DangersInRange;
-        Debug.Log(dangers.Count);
+        //Debug.Log(dangers.Count);
+
         if (dangers.Count > 0)
         {
-            if (currentDanger == null)
+            movePointType = 1;
+            bool currentDangerStillInRange = IsDangerStillInRange(currentDanger);
+            if (currentDanger == null || !currentDangerStillInRange)
             {
                 currentDanger = dangers[0];
                 tempMovePoint = movePoint;
-                movePoint = currentDanger.transform;
+                movePoint = currentDanger.transform;   
             }
             else
             {
@@ -62,42 +72,61 @@ public class BabyAI : MonoBehaviour
         }
         else
         {
+            movePointType = 0;
             currentDanger = null;
-            movePoint = tempMovePoint; // go back to the defined path
+            if (tempMovePoint)
+            {
+                movePoint = tempMovePoint; // go back to the defined path
+            }
         }
     }
 
-    /*private void checkIfHasReachedPoint()
+    private bool IsDangerStillInRange(Collider dangerToSearch)
+    {
+        if (dangerToSearch == null)
+        {
+            return false;
+        }
+
+        List<Collider> dangers = GameManager.DangersInRange;
+
+        foreach (Collider danger in dangers)
+        {
+            if (danger.GetComponent<Transform>() == dangerToSearch.transform)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void SetNextPointIfHasReached()
     {
         bool hasReachPoint = agent.remainingDistance <= agent.stoppingDistance;
         if (hasReachPoint)
         {
             bool isMovePointADanger = movePointType == 1;
-<<<<<<< Updated upstream
-            bool isDangerInRange = GameManager.GetInstance().IsDangerInRange;
-=======
-            bool isDangerInRange = GameManager.IsDangerInRange;
-            Debug.Log(GameManager.IsDangerInRange);
->>>>>>> Stashed changes
-            if (isMovePointADanger && isDangerInRange)
+
+            if (isMovePointADanger)
             {
                 return;
             }
-            setNextPoint();
+            SetNextPoint();
         }
-    }*/
+    }
 
-    /*private void setNextPoint()
+    private void SetNextPoint()
     {
         pointIndex++;
         bool noMorePathPoints = pointIndex >= pathPoints.Length;
         if (noMorePathPoints)
         {
-            lookForDanger();
+            //lookForDanger();
+            GetNextRoomPoints();
             return;
         }
         movePoint = pathPoints[pointIndex];
-    }*/
+    }
 
     /*private void lookForDanger()
     {
@@ -128,10 +157,11 @@ public class BabyAI : MonoBehaviour
     private void GetNextRoomPoints()
     {
         int nbRooms = fixedPoints.transform.childCount;
+        Debug.Log(nbRooms);
         bool noMoreRoom = roomIndex + 1 >= nbRooms;
         if (noMoreRoom)
         {
-            //Debug.Log("End of the path");
+            Debug.Log("FIN DU PARCOURS");
             return;
         }
 
@@ -141,8 +171,5 @@ public class BabyAI : MonoBehaviour
         Transform roomPathPoints = fixedPoints.transform.GetChild(roomIndex);
         pathPoints = roomPathPoints.GetComponentsInChildren<Transform>();
         pointIndex = 1; // start at index 1, cause index 0 = the parent itself
-        movePoint = pathPoints[pointIndex];
-        Debug.Log(movePoint);
     }
-
 }
