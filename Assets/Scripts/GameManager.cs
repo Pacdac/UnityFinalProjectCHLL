@@ -5,9 +5,16 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+
+    /*private static GameManager _instance;
+    private bool isDangerInRange = false;
+    private Transform currentDanger;
+    private GameManager()*/
+
     private static bool isFacingDanger = false;
     private static bool isDangerInRange = false;
-    private static Transform currentDanger;
+    //private static Transform currentDanger;
+    private static List<Collider> dangersInRange;
     public static GameObject carriedObject;
     public static GameObject carriableObject;
     public static GameObject interactableObject;
@@ -20,23 +27,37 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
-    public static bool IsFacingDanger
+    /*public static GameManager GetInstance()
     {
-        get => isFacingDanger;
-        set => isFacingDanger = value;
-    }
-
-    public static bool IsDangerInRange
+        if (_instance == null)
+        {
+            _instance = new GameManager();
+        }
+        return _instance;
+    }*/
+    public bool IsDangerInRange
     {
         get => isDangerInRange;
         set => isDangerInRange = value;
     }
 
-    public static Transform CurrentDanger
+    /*public Transform CurrentDanger
     {
         get => currentDanger;
         set => currentDanger = value;
+    }*/
+
+    public static List<Collider> DangersInRange
+    {
+        get => dangersInRange;
+        set => dangersInRange = value;
+
     }
+    /*public static Transform CurrentDanger
+    {
+        get => currentDanger;
+        set => currentDanger = value;
+    }*/
 
     public static float ScoreCalculation()
     {

@@ -24,14 +24,14 @@ public class IsVisible : MonoBehaviour
             if (Physics.Raycast(transform.position, target.position-transform.position, out hit, Mathf.Infinity) && hit.collider.gameObject.tag == "Player")
             {
                 GameManager.timeInVision += Time.deltaTime;
-                Debug.Log("Object is visible");
+                //Debug.Log("Object is visible");
             } else
             {
-                Debug.Log("Object is no longer visible");
+                //Debug.Log("Object is no longer visible");
             }
             
         }
-        else Debug.Log("Object is no longer visible");
+        //else Debug.Log("Object is no longer visible");
     }
     
 }

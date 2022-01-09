@@ -26,7 +26,7 @@ public class BabyInteraction : MonoBehaviour
         GameManager.timeAlive += Time.deltaTime;
         checkDeath();
 
-        Transform currentDanger = GameManager.CurrentDanger;
+        //Transform currentDanger = GameManager.CurrentDanger;
         bool isDangerInRange = false;
 
         foreach (Collider collider in collidersInRadius)
@@ -34,9 +34,12 @@ public class BabyInteraction : MonoBehaviour
             if ((collider.tag == "Interactable" && collider.GetComponent<InteractableAsset>().isOpen) || collider.tag == "Carriable" && !collider.GetComponent<Rigidbody>().isKinematic)
             {
 
+                /*if (collider.GetComponent<Transform>() == currentDanger)
+                {
+                    isDangerInRange = true;
+                }*/
                 if (Physics.Raycast(transform.position, collider.transform.position - transform.position, out hit, Mathf.Infinity) && hit.collider.gameObject.tag == "Carriable")
                 {
-
                     dangerous.Add(collider);
                     /*if (collider.GetComponent<Transform>() == currentDanger)
                     {
@@ -44,19 +47,13 @@ public class BabyInteraction : MonoBehaviour
                     }*/
                 }
                 //dangerous.Add(collider);
-                
+
             }
         }
 
-        /*GameManager.IsDangerInRange = isDangerInRange;
-        if (isDangerInRange)
-        {
-            startTimer();
-        }
-        else { 
-            resetTimer();
-        }*/
-
+        //GameManager.GetInstance().IsDangerInRange = isDangerInRange;
+        GameManager.DangersInRange = dangerous;
+        
         if (dangerous.Count > 0)
         {
             startTimer();
