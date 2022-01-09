@@ -110,7 +110,7 @@ public class BabyAI : MonoBehaviour
 
             if (hasReachPoint)
             {
-                Debug.Log("reached " + movePoint.name);
+                //Debug.Log("reached " + movePoint.name);
                 SetNextPoint();
             }
         }
@@ -123,13 +123,13 @@ public class BabyAI : MonoBehaviour
         bool noMorePathPoints = pointIndex >= pathPoints.Length;
         if (noMorePathPoints)
         {
-            //lookForDanger();
             GetNextRoomPoints();
         }
         //Debug.Log(pointIndex + " " + pathPoints.Length);
         movePoint = pathPoints[pointIndex];
-        Debug.Log("goto " + movePoint.name);
+        //Debug.Log("goto " + movePoint.name);
     }
+
 
 
     private void GetNextRoomPoints()
