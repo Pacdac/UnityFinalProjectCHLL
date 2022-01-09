@@ -31,9 +31,9 @@ public class BabyAI : MonoBehaviour
 
     void Update()
     {
-        MoveToPoint();
+        
         SetMoveToDangerIfInRange();
-
+        MoveToPoint();
         SetNextPointIfHasReached();
     }
 
@@ -44,41 +44,40 @@ public class BabyAI : MonoBehaviour
         {
             agent.SetDestination(movePoint.position);
         } else {
-            movePoint = gameObject.transform; // pour dire de mettre un truc et éviter erreurs
+            //movePoint = gameObject.transform; // pour dire de mettre un truc et éviter erreurs
         }
         
     }
 
     private void SetMoveToDangerIfInRange()
     {
-        List<Collider> dangers = GameManager.DangersInRange;
-        //Debug.Log(dangers.Count);
 
-        if (dangers.Count > 0)
+        List<Collider> dangers = GameManager.DangersInRange;
+
+        bool dangerInRange = dangers != null && dangers.Count > 0;
+        if (dangerInRange)
         {
+
             movePointType = 1;
             bool currentDangerStillInRange = IsDangerStillInRange(currentDanger);
+            // select another danger
             if (currentDanger == null || !currentDangerStillInRange)
             {
                 currentDanger = dangers[0];
                 tempMovePoint = movePoint;
-                movePoint = currentDanger.transform;   
-            }
-            else
-            {
-                // rien, on continue
-            }
-
+                movePoint = currentDanger.transform;
+            }    
         }
         else
         {
             movePointType = 0;
             currentDanger = null;
-            if (tempMovePoint)
+            if (tempMovePoint != null)
             {
                 movePoint = tempMovePoint; // go back to the defined path
+                tempMovePoint = null;
             }
-        }
+        }  
     }
 
     private bool IsDangerStillInRange(Collider dangerToSearch)
@@ -102,66 +101,45 @@ public class BabyAI : MonoBehaviour
 
     private void SetNextPointIfHasReached()
     {
-        bool hasReachPoint = agent.remainingDistance <= agent.stoppingDistance;
-        if (hasReachPoint)
+        bool isMovePointADanger = movePointType == 1;
+        if (!isMovePointADanger)
         {
-            bool isMovePointADanger = movePointType == 1;
+            // distance between baby and object if danger, but distance = 0 if roomPoint
+            // for a danger: agent.remainingDistance <= agent.stoppingDistance
+            bool hasReachPoint = agent.remainingDistance - agent.stoppingDistance <= 0;
 
-            if (isMovePointADanger)
+            if (hasReachPoint)
             {
-                return;
+                Debug.Log("reached " + movePoint.name);
+                SetNextPoint();
             }
-            SetNextPoint();
         }
     }
 
     private void SetNextPoint()
     {
         pointIndex++;
+
         bool noMorePathPoints = pointIndex >= pathPoints.Length;
         if (noMorePathPoints)
         {
             //lookForDanger();
             GetNextRoomPoints();
-            return;
         }
+        //Debug.Log(pointIndex + " " + pathPoints.Length);
         movePoint = pathPoints[pointIndex];
+        Debug.Log("goto " + movePoint.name);
     }
-
-    /*private void lookForDanger()
-    {
-        Transform roomDangerPoints = danger.transform.GetChild(roomIndex);
-        dangerPoints = roomDangerPoints.GetComponentsInChildren<Transform>();
-        int nbDanger = dangerPoints.Length - 1;
-
-        bool noMoreDanger = nbDanger <= 0;
-        if (noMoreDanger)
-        {
-            getNextRoomPoints();
-            return;
-        }
-
-        int randomDangerIndex = Random.Range(1, nbDanger);
-        movePoint = dangerPoints[randomDangerIndex];
-        movePointType = 1;
-        agent.stoppingDistance = 2;
-<<<<<<< Updated upstream
-
-        GameManager.GetInstance().CurrentDanger = movePoint;
-    }
-=======
-        GameManager.CurrentDanger = movePoint;
-    }*/
 
 
     private void GetNextRoomPoints()
     {
         int nbRooms = fixedPoints.transform.childCount;
-        Debug.Log(nbRooms);
         bool noMoreRoom = roomIndex + 1 >= nbRooms;
         if (noMoreRoom)
         {
             Debug.Log("FIN DU PARCOURS");
+            TurnOff();
             return;
         }
 
@@ -171,5 +149,11 @@ public class BabyAI : MonoBehaviour
         Transform roomPathPoints = fixedPoints.transform.GetChild(roomIndex);
         pathPoints = roomPathPoints.GetComponentsInChildren<Transform>();
         pointIndex = 1; // start at index 1, cause index 0 = the parent itself
+       // Debug.Log("1er point " + pathPoints[pointIndex]);
+    }
+
+    public void TurnOff()
+    {
+        this.enabled = false;
     }
 }
