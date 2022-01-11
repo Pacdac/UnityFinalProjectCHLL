@@ -7,21 +7,24 @@ public class IsVisible : MonoBehaviour
 
     Renderer m_Renderer;
     public Transform target;
+    public Vector3 offset;
+    private Vector3 position;
        
     // Use this for initialization
     void Start()
     {
         m_Renderer = GetComponent<Renderer>();
+        
     }
 
     // Update is called once per frame
     void Update()
     {
         RaycastHit hit;
+        position = target.position + offset;
         if (m_Renderer.isVisible)
         {
-
-            if (Physics.Raycast(transform.position, target.position-transform.position, out hit, Mathf.Infinity) && hit.collider.gameObject.tag == "Player")
+            if (Physics.Raycast(transform.position, position-transform.position, out hit, Mathf.Infinity) && hit.collider.gameObject.tag == "Player")
             {
                 GameManager.timeInVision += Time.deltaTime;
                 Debug.Log("Object is visible");
@@ -33,5 +36,5 @@ public class IsVisible : MonoBehaviour
         }
         else Debug.Log("Object is no longer visible");
     }
-    
+
 }

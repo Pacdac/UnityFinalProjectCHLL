@@ -9,13 +9,16 @@ EditorBuildSettings:
     path: Assets/Scenes/_preload.unity
     guid: 3fea62d3d8a99554cb027cf37ffdc2bf
   - enabled: 1
-    path: Assets/Scenes/Menu.unity
+    path: Assets/Scenes/XRMenu.unity
     guid: e99bb6c85deda0c4184e425357668f6b
   - enabled: 1
     path: Assets/Scenes/FinalProject.unity
     guid: bd68e73c301a90f41b50f9d6aa86fe33
   - enabled: 1
-    path: Assets/Scenes/Endscreen.unity
+    path: Assets/Scenes/New Scene.unity
+    guid: c6e5b2240906ea64a85614c10ff505bc
+  - enabled: 1
+    path: Assets/Scenes/XREndscreen.unity
     guid: b62e2ce48d32ed94f9a1960f590b1ce8
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 3cf1d140aa5c9e64389e4a141f180171, type: 2}
