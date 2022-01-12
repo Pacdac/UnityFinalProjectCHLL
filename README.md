@@ -9,3 +9,7 @@ https://assetstore.unity.com/packages/3d/props/furniture/glassofcoins-furniture-
 https://assetstore.unity.com/packages/3d/props/office-supplies-low-poly-105519
 VR Controller and Hand models : https://www.youtube.com/watch?v=VdT0zMcggTQ&list=PLrk7hDwk64-a_gf7mBBduQb3PEBYnG4fU&index=3
   
+https://assetstore.unity.com/packages/tools/particles-effects/breakable-windows-110383
+https://assetstore.unity.com/packages/3d/props/furniture/toon-furniture-88740
+https://assetstore.unity.com/packages/3d/props/children-s-wooden-toys-free-train-pack-179951
+https://assetstore.unity.com/packages/3d/props/clothing/accessories/hairdryer-165017

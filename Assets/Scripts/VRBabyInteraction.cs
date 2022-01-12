@@ -26,7 +26,7 @@ public class VRBabyInteraction : MonoBehaviour
         GameManager.timeAlive += Time.deltaTime;
         checkDeath();
 
-        Transform currentDanger = GameManager.CurrentDanger;
+        //Transform currentDanger = GameManager.CurrentDanger;
         bool isDangerInRange = false;
 
         foreach (Collider collider in collidersInRadius)

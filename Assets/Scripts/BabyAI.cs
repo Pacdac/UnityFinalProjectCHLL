@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class BabyAI : MonoBehaviour
 {
     // Suis les points de "paths", puis va chercher un danger random dans la
-    [SerializeField] private GameObject fixedPoints;
+    [SerializeField] private GameObject fixedPoints; // room points
     [SerializeField] private GameObject danger;
     [SerializeField] private NavMeshAgent agent;
     private Transform[] pathPoints;
@@ -19,78 +19,127 @@ public class BabyAI : MonoBehaviour
     private float rotationSpeed = 200f;
     private int roomIndex = -1; // le mettre dans GameManager maybe
     int movePointType;
+    private Transform tempMovePoint;
+
+    private Collider currentDanger = null;
 
     void Start()
     {
-        getNextRoomPoints();
+        GetNextRoomPoints();
+        movePoint = pathPoints[pointIndex];
     }
 
     void Update()
     {
-        checkIfHasReachedPoint();
+        
+        SetMoveToDangerIfInRange();
+        MoveToPoint();
+        SetNextPointIfHasReached();
     }
 
-    private void checkIfHasReachedPoint()
+    private void MoveToPoint()
     {
-        bool hasReachPoint = agent.remainingDistance <= agent.stoppingDistance;
-        if (hasReachPoint)
+        
+        if (movePoint) // car update appelé avant le start (?!), donc movePoint null 
         {
-            bool isMovePointADanger = movePointType == 1;
-            bool isDangerInRange = GameManager.IsDangerInRange;
-            if (isMovePointADanger && isDangerInRange)
-            {
-                return;
-            }
-            setNextPoint();
+            agent.SetDestination(movePoint.position);
+        } else {
+            //movePoint = gameObject.transform; // pour dire de mettre un truc et éviter erreurs
         }
-        move();
+        
     }
 
-
-    private void move()
+    private void SetMoveToDangerIfInRange()
     {
-        agent.SetDestination(movePoint.position);
+
+        List<Collider> dangers = GameManager.DangersInRange;
+
+        bool dangerInRange = dangers != null && dangers.Count > 0;
+        if (dangerInRange)
+        {
+
+            movePointType = 1;
+            bool currentDangerStillInRange = IsDangerStillInRange(currentDanger);
+            // select another danger
+            if (currentDanger == null || !currentDangerStillInRange)
+            {
+                currentDanger = dangers[0];
+                tempMovePoint = movePoint;
+                movePoint = currentDanger.transform;
+            }    
+        }
+        else
+        {
+            movePointType = 0;
+            currentDanger = null;
+            if (tempMovePoint != null)
+            {
+                movePoint = tempMovePoint; // go back to the defined path
+                tempMovePoint = null;
+            }
+        }  
     }
 
-    private void setNextPoint()
+    private bool IsDangerStillInRange(Collider dangerToSearch)
+    {
+        if (dangerToSearch == null)
+        {
+            return false;
+        }
+
+        List<Collider> dangers = GameManager.DangersInRange;
+
+        foreach (Collider danger in dangers)
+        {
+            if (danger.GetComponent<Transform>() == dangerToSearch.transform)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void SetNextPointIfHasReached()
+    {
+        bool isMovePointADanger = movePointType == 1;
+        if (!isMovePointADanger)
+        {
+            // distance between baby and object if danger, but distance = 0 if roomPoint
+            // for a danger: agent.remainingDistance <= agent.stoppingDistance
+            bool hasReachPoint = agent.remainingDistance - agent.stoppingDistance <= 0;
+
+            if (hasReachPoint)
+            {
+                //Debug.Log("reached " + movePoint.name);
+                SetNextPoint();
+            }
+        }
+    }
+
+    private void SetNextPoint()
     {
         pointIndex++;
+
         bool noMorePathPoints = pointIndex >= pathPoints.Length;
         if (noMorePathPoints)
         {
-            lookForDanger();
-            return;
+            GetNextRoomPoints();
         }
+        //Debug.Log(pointIndex + " " + pathPoints.Length);
         movePoint = pathPoints[pointIndex];
+        //Debug.Log("goto " + movePoint.name);
     }
 
-    private void lookForDanger()
-    {
-        Transform roomDangerPoints = danger.transform.GetChild(roomIndex);
-        dangerPoints = roomDangerPoints.GetComponentsInChildren<Transform>();
-        int nbDanger = dangerPoints.Length - 1;
 
-        bool noMoreDanger = nbDanger <= 0;
-        if (noMoreDanger)
-        {
-            getNextRoomPoints();
-            return;
-        }
 
-        int randomDangerIndex = Random.Range(1, nbDanger);
-        movePoint = dangerPoints[randomDangerIndex];
-        movePointType = 1;
-        agent.stoppingDistance = 2;
-        GameManager.CurrentDanger = movePoint;
-    }
-
-    private void getNextRoomPoints()
+    private void GetNextRoomPoints()
     {
         int nbRooms = fixedPoints.transform.childCount;
         bool noMoreRoom = roomIndex + 1 >= nbRooms;
         if (noMoreRoom)
         {
-            //Debug.Log("End of the path");
+            Debug.Log("FIN DU PARCOURS");
+            TurnOff();
             return;
         }
 
@@ -100,7 +149,11 @@ public class BabyAI : MonoBehaviour
         Transform roomPathPoints = fixedPoints.transform.GetChild(roomIndex);
         pathPoints = roomPathPoints.GetComponentsInChildren<Transform>();
         pointIndex = 1; // start at index 1, cause index 0 = the parent itself
-        movePoint = pathPoints[pointIndex];
+       // Debug.Log("1er point " + pathPoints[pointIndex]);
     }
-    
+
+    public void TurnOff()
+    {
+        this.enabled = false;
+    }
 }
