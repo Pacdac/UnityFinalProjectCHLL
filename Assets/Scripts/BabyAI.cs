@@ -28,8 +28,6 @@ public class BabyAI : MonoBehaviour
     void Start()
     {
         animator = gameObject.transform.Find("BabyModel").GetComponent<Animator>();
-
-        FindObjectOfType<AudioManager>().Play("Baby");
         GetNextRoomPoints();
         movePoint = pathPoints[pointIndex];
     }
@@ -69,6 +67,7 @@ public class BabyAI : MonoBehaviour
             // select another danger
             if (currentDanger == null || !currentDangerStillInRange)
             {
+                FindObjectOfType<AudioManager>().Play("Laugh");
                 animator.SetBool("isMoving", true);
                 currentDanger = dangers[0];
                 tempMovePoint = movePoint;

@@ -56,7 +56,6 @@ public class BabyInteraction : MonoBehaviour
         
         if (dangerous.Count > 0)
         {
-            //FindObjectOfType<AudioManager>().Play("Laugh");
             startTimer();
         }
         else if (dangerous.Count == 0 && !isDead)
@@ -67,11 +66,6 @@ public class BabyInteraction : MonoBehaviour
 
     private void startTimer()
     {
-        //FindObjectOfType<AudioManager>().Stop("Baby");
-        
-        //FindObjectOfType<AudioManager>().Play("Baby");
-        Debug.Log("test");
-
         dangerBar.gameObject.SetActive(true);
         if (currentTime < maxTime)
         {

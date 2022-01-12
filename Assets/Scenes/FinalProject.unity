@@ -13156,7 +13156,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lookRadius: 3
-  maxTime: 10
+  maxTime: 3
   dangerBar: {fileID: 1337901791}
 --- !u!195 &1225533166
 NavMeshAgent:
