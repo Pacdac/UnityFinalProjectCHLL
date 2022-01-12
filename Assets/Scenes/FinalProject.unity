@@ -6322,7 +6322,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 2dea006793937354aaaf928e590be871, type: 3}
       propertyPath: m_Name
-      value: BabyRigged+CrawlAnim
+      value: BabyModel
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2dea006793937354aaaf928e590be871, type: 3}

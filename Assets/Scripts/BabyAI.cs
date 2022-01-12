@@ -23,8 +23,11 @@ public class BabyAI : MonoBehaviour
 
     private Collider currentDanger = null;
 
+    private Animator animator;
+
     void Start()
     {
+        animator = gameObject.transform.Find("BabyModel").GetComponent<Animator>();
         GetNextRoomPoints();
         movePoint = pathPoints[pointIndex];
     }
@@ -40,11 +43,11 @@ public class BabyAI : MonoBehaviour
     private void MoveToPoint()
     {
         
-        if (movePoint) // car update appelé avant le start (?!), donc movePoint null 
+        if (movePoint) // car update appelï¿½ avant le start (?!), donc movePoint null 
         {
             agent.SetDestination(movePoint.position);
         } else {
-            //movePoint = gameObject.transform; // pour dire de mettre un truc et éviter erreurs
+            //movePoint = gameObject.transform; // pour dire de mettre un truc et ï¿½viter erreurs
         }
         
     }
@@ -60,9 +63,11 @@ public class BabyAI : MonoBehaviour
 
             movePointType = 1;
             bool currentDangerStillInRange = IsDangerStillInRange(currentDanger);
+            animator.SetBool("isMoving", false);
             // select another danger
             if (currentDanger == null || !currentDangerStillInRange)
             {
+                animator.SetBool("isMoving", true);
                 currentDanger = dangers[0];
                 tempMovePoint = movePoint;
                 movePoint = currentDanger.transform;
@@ -74,6 +79,7 @@ public class BabyAI : MonoBehaviour
             currentDanger = null;
             if (tempMovePoint != null)
             {
+                animator.SetBool("isMoving", true);
                 movePoint = tempMovePoint; // go back to the defined path
                 tempMovePoint = null;
             }
