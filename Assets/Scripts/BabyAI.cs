@@ -9,14 +9,14 @@ public class BabyAI : MonoBehaviour
 {
     // Suis les points de "paths", puis va chercher un danger random dans la
     [SerializeField] private GameObject fixedPoints; // room points
-    [SerializeField] private GameObject danger;
     [SerializeField] private NavMeshAgent agent;
+    [SerializeField] private Animator babyAnimator;
     private Transform[] pathPoints;
-    private Transform[] dangerPoints;
     private Transform movePoint;
     private int pointIndex;
-    private float speed = 5f;
-    private float rotationSpeed = 200f;
+    private bool isWalking = true;
+    public float speed = 5f;
+    public float rotationSpeed = 200f;
     private int roomIndex = -1; // le mettre dans GameManager maybe
     int movePointType;
     private Transform tempMovePoint;
@@ -35,6 +35,8 @@ public class BabyAI : MonoBehaviour
         SetMoveToDangerIfInRange();
         MoveToPoint();
         SetNextPointIfHasReached();
+        Debug.Log(isWalking);
+        babyAnimator.SetBool("isWalking", isWalking);
     }
 
     private void MoveToPoint()
@@ -51,7 +53,7 @@ public class BabyAI : MonoBehaviour
 
     private void SetMoveToDangerIfInRange()
     {
-
+        
         List<Collider> dangers = GameManager.DangersInRange;
 
         bool dangerInRange = dangers != null && dangers.Count > 0;
@@ -59,6 +61,7 @@ public class BabyAI : MonoBehaviour
         {
 
             movePointType = 1;
+            isWalking = false;
             bool currentDangerStillInRange = IsDangerStillInRange(currentDanger);
             // select another danger
             if (currentDanger == null || !currentDangerStillInRange)
@@ -66,10 +69,12 @@ public class BabyAI : MonoBehaviour
                 currentDanger = dangers[0];
                 tempMovePoint = movePoint;
                 movePoint = currentDanger.transform;
-            }    
+            }
+            
         }
         else
         {
+            isWalking = true;
             movePointType = 0;
             currentDanger = null;
             if (tempMovePoint != null)
@@ -139,8 +144,7 @@ public class BabyAI : MonoBehaviour
         if (noMoreRoom)
         {
             Debug.Log("FIN DU PARCOURS");
-            TurnOff();
-            return;
+            GameManager.LoadNextLevel();
         }
 
         roomIndex++;

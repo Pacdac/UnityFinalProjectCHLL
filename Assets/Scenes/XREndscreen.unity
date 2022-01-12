@@ -687,11 +687,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8952599890509545115, guid: 9da431b494e51934fb257a9e8781185c, type: 3}
       propertyPath: m_InvalidColorGradient.key0.a
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8952599890509545115, guid: 9da431b494e51934fb257a9e8781185c, type: 3}
       propertyPath: m_InvalidColorGradient.key1.a
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9da431b494e51934fb257a9e8781185c, type: 3}

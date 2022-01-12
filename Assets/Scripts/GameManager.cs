@@ -27,25 +27,11 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
-    /*public static GameManager GetInstance()
-    {
-        if (_instance == null)
-        {
-            _instance = new GameManager();
-        }
-        return _instance;
-    }*/
     public bool IsDangerInRange
     {
         get => isDangerInRange;
         set => isDangerInRange = value;
     }
-
-    /*public Transform CurrentDanger
-    {
-        get => currentDanger;
-        set => currentDanger = value;
-    }*/
 
     public static List<Collider> DangersInRange
     {
@@ -53,11 +39,6 @@ public class GameManager : MonoBehaviour
         set => dangersInRange = value;
 
     }
-    /*public static Transform CurrentDanger
-    {
-        get => currentDanger;
-        set => currentDanger = value;
-    }*/
 
     public static float ScoreCalculation()
     {

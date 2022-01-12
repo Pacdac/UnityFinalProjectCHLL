@@ -26,36 +26,20 @@ public class VRBabyInteraction : MonoBehaviour
         GameManager.timeAlive += Time.deltaTime;
         checkDeath();
 
-        //Transform currentDanger = GameManager.CurrentDanger;
-        bool isDangerInRange = false;
-
         foreach (Collider collider in collidersInRadius)
         {
-            if ((collider.tag == "Dangerous") || (collider.tag == "Carriable" && !collider.GetComponent<Rigidbody>().isKinematic))
+            if (collider.tag == "Dangerous")
             {
 
                 if (Physics.Raycast(transform.position, collider.transform.position - transform.position, out hit, Mathf.Infinity) && hit.collider.gameObject.tag == "Dangerous")
                 {
-
                     dangerous.Add(collider);
-                    /*if (collider.GetComponent<Transform>() == currentDanger)
-                    {
-                        isDangerInRange = true;
-                    }*/
                 }
-                //dangerous.Add(collider);
                 
             }
         }
 
-        /*GameManager.IsDangerInRange = isDangerInRange;
-        if (isDangerInRange)
-        {
-            startTimer();
-        }
-        else { 
-            resetTimer();
-        }*/
+        GameManager.DangersInRange = dangerous;
 
         if (dangerous.Count > 0)
         {

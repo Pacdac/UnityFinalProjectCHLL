@@ -668,8 +668,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fixedPoints: {fileID: 0}
-  danger: {fileID: 0}
   agent: {fileID: 1425281795}
+  speed: 5
+  rotationSpeed: 200
 --- !u!65 &1425281798
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2902,6 +2903,34 @@ PrefabInstance:
     - target: {fileID: 6111769902221842542, guid: b73ccdb8aa2522e4c9abea71f9f4a1e3, type: 3}
       propertyPath: m_Name
       value: VRWashingMachine
+      objectReference: {fileID: 0}
+    - target: {fileID: 6111769902221842542, guid: b73ccdb8aa2522e4c9abea71f9f4a1e3, type: 3}
+      propertyPath: m_TagString
+      value: Dangerous
+      objectReference: {fileID: 0}
+    - target: {fileID: 6111769902634782439, guid: b73ccdb8aa2522e4c9abea71f9f4a1e3, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6111769902634782439, guid: b73ccdb8aa2522e4c9abea71f9f4a1e3, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6111769902634782439, guid: b73ccdb8aa2522e4c9abea71f9f4a1e3, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6111769902634782439, guid: b73ccdb8aa2522e4c9abea71f9f4a1e3, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6111769902634782439, guid: b73ccdb8aa2522e4c9abea71f9f4a1e3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 6111769902634782439, guid: b73ccdb8aa2522e4c9abea71f9f4a1e3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -90
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b73ccdb8aa2522e4c9abea71f9f4a1e3, type: 3}
