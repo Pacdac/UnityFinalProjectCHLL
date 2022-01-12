@@ -28,6 +28,8 @@ public class BabyAI : MonoBehaviour
     void Start()
     {
         animator = gameObject.transform.Find("BabyModel").GetComponent<Animator>();
+
+        FindObjectOfType<AudioManager>().Play("Baby");
         GetNextRoomPoints();
         movePoint = pathPoints[pointIndex];
     }
