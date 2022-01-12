@@ -62,6 +62,14 @@ public class PlayerMovement : MonoBehaviour
                 GameManager.carriedObject = null;
             }
         }
+        if (Input.GetKeyDown(KeyManager.Crouch))
+        {
+            FindObjectOfType<AudioManager>().Play("CrouchDown");
+        }
+        if (Input.GetKey(KeyManager.Crouch))
+        {
+            FindObjectOfType<AudioManager>().Play("StandUp");
+        }
     }
 
     private void FixedUpdate()
@@ -79,6 +87,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (!enableMovement)
             return;
+
         if (Input.GetKey(KeyManager.Crouch)) {
             inputForce = (transform.forward * vInput + transform.right * hInput).normalized * crouchSpeed;
             if (GameManager.carriedObject != null)
