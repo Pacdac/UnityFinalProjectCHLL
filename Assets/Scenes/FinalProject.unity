@@ -13156,7 +13156,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lookRadius: 3
-  maxTime: 3
+  maxTime: 99999
   dangerBar: {fileID: 1337901791}
 --- !u!195 &1225533166
 NavMeshAgent:
@@ -15811,6 +15811,12 @@ MonoBehaviour:
     pitch: 1
     source: {fileID: 0}
     loop: 0
+  - clip: {fileID: 8300000, guid: 87aae6a6015bca147b017b611bdb5b23, type: 3}
+    name: FootSteps
+    volume: 0.1
+    pitch: 1
+    source: {fileID: 0}
+    loop: 1
 --- !u!4 &1510799976
 Transform:
   m_ObjectHideFlags: 0

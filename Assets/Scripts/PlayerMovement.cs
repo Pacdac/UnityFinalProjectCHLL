@@ -37,6 +37,7 @@ public class PlayerMovement : MonoBehaviour
 
     private Vector3 inputForce;
     private float prevY;
+    private bool wasAlreadyWalking = false;
 
     private void Update()
     {
@@ -70,6 +71,24 @@ public class PlayerMovement : MonoBehaviour
         {
             FindObjectOfType<AudioManager>().Play("StandUp");
         }
+
+        /* if (enableMovement)
+         {
+             
+         }*/
+        bool isWalking = vInput > 0 || hInput > 0;
+        if (isWalking)
+        {
+            if (!wasAlreadyWalking)
+            {
+                FindObjectOfType<AudioManager>().Play("FootSteps");
+                wasAlreadyWalking = true;
+            }
+        } else
+        {
+            FindObjectOfType<AudioManager>().Stop("FootSteps");
+            wasAlreadyWalking = false;
+        }
     }
 
     private void FixedUpdate()
@@ -93,6 +112,7 @@ public class PlayerMovement : MonoBehaviour
             if (GameManager.carriedObject != null)
                 GameManager.carriedObject.transform.localPosition = new Vector3(0f, 0f, 1f);
         } else if (Input.GetKey(KeyManager.Run)) {
+            
             inputForce = (transform.forward * vInput + transform.right * hInput).normalized * runSpeed;
             if (GameManager.carriedObject != null)
                 GameManager.carriedObject.transform.localPosition = new Vector3(0f, 0.5f, 1f);
