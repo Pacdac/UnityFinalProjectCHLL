@@ -43,21 +43,30 @@ public class PlayerMovement : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyManager.Carry))
         {
+            // pick up
             if (CameraRaycast.isCarriable && GameManager.carriedObject == null)
             {
+                FindObjectOfType<AudioManager>().Play("PickUp");
                 GameManager.carriableObject.transform.parent = this.gameObject.transform;
                 GameManager.carriableObject.GetComponent<Rigidbody>().isKinematic = true;
                 GameManager.carriableObject.transform.localPosition = new Vector3(0f, 0.5f, 1f);
                 GameManager.carriedObject = GameManager.carriableObject;
             }
 
+            // open/close
             else if (CameraRaycast.isInteractable)
             {
+                bool isOpen = GameManager.interactableObject.GetComponent<InteractableAsset>().isOpen;
+                string strSound = isOpen ? "Close" : "Open";
+                FindObjectOfType<AudioManager>().Play(strSound);
+
                 GameManager.interactableObject.GetComponent<InteractableAsset>().onInteraction();
             }
 
+            // drop 
             else if (GameManager.carriedObject != null)
             {
+                FindObjectOfType<AudioManager>().Play("Drop");
                 GameManager.carriedObject.transform.SetParent(null);
                 GameManager.carriedObject.GetComponent<Rigidbody>().isKinematic = false;
                 GameManager.carriedObject = null;

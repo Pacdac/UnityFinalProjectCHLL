@@ -15817,6 +15817,30 @@ MonoBehaviour:
     pitch: 1
     source: {fileID: 0}
     loop: 1
+  - clip: {fileID: 8300000, guid: 7d9cffacd467a144bb6050a6f6f08dfd, type: 3}
+    name: PickUp
+    volume: 0.2
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
+  - clip: {fileID: 8300000, guid: b1c70203ef9207044860b85a9a38da90, type: 3}
+    name: Drop
+    volume: 0.2
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
+  - clip: {fileID: 8300000, guid: 59a597e1d0786544c8892577326bfe14, type: 3}
+    name: Open
+    volume: 0.8
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
+  - clip: {fileID: 8300000, guid: e84e469911fde7045bc4860ff5744487, type: 3}
+    name: Close
+    volume: 0.2
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
 --- !u!4 &1510799976
 Transform:
   m_ObjectHideFlags: 0
