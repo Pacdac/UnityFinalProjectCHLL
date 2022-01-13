@@ -256,6 +256,7 @@ GameObject:
   - component: {fileID: 220926605}
   - component: {fileID: 220926604}
   - component: {fileID: 220926603}
+  - component: {fileID: 220926607}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -346,6 +347,102 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!82 &220926607
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 220926602}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 89774cb5bb34dee4e9c721e8502a0640, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &264668406
 GameObject:
   m_ObjectHideFlags: 0
@@ -661,7 +758,7 @@ MonoBehaviour:
   m_text: OPTIONS
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 131df8e47f1dec2439180e92a50d74bc, type: 2}
-  m_sharedMaterial: {fileID: -7596086910517545390, guid: 131df8e47f1dec2439180e92a50d74bc, type: 2}
+  m_sharedMaterial: {fileID: -5260612606810484033, guid: 131df8e47f1dec2439180e92a50d74bc, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -795,7 +892,7 @@ MonoBehaviour:
   m_text: PLAY
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 131df8e47f1dec2439180e92a50d74bc, type: 2}
-  m_sharedMaterial: {fileID: -7596086910517545390, guid: 131df8e47f1dec2439180e92a50d74bc, type: 2}
+  m_sharedMaterial: {fileID: -5260612606810484033, guid: 131df8e47f1dec2439180e92a50d74bc, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1032,7 +1129,7 @@ MonoBehaviour:
   m_text: EXIT
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 131df8e47f1dec2439180e92a50d74bc, type: 2}
-  m_sharedMaterial: {fileID: -7596086910517545390, guid: 131df8e47f1dec2439180e92a50d74bc, type: 2}
+  m_sharedMaterial: {fileID: -5260612606810484033, guid: 131df8e47f1dec2439180e92a50d74bc, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1259,7 +1356,7 @@ MonoBehaviour:
   m_text: must live!
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b8abbd31f8ed7c148a543792b20120a0, type: 2}
-  m_sharedMaterial: {fileID: 1493790860744815506, guid: b8abbd31f8ed7c148a543792b20120a0, type: 2}
+  m_sharedMaterial: {fileID: 8245645806586896055, guid: b8abbd31f8ed7c148a543792b20120a0, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1393,7 +1490,7 @@ MonoBehaviour:
   m_text: Baby
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 131df8e47f1dec2439180e92a50d74bc, type: 2}
-  m_sharedMaterial: {fileID: -7596086910517545390, guid: 131df8e47f1dec2439180e92a50d74bc, type: 2}
+  m_sharedMaterial: {fileID: -5260612606810484033, guid: 131df8e47f1dec2439180e92a50d74bc, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
