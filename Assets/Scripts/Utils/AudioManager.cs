@@ -31,26 +31,41 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    public void Play(string name)
+    public void Play(string name, float delay = 0)
     {
-        Sound sound = Array.Find(sounds, sound => sound.name == name);
+        Sound sound = SearchSound(name);
         if (sound == null)
         {
             Debug.LogWarning("Sound " + name + " not found.");
             return;
         }
-        //Debug.Log("Sound " + name + " playing");
-        sound.source.Play();
+        sound.source.PlayDelayed(delay);
     }
 
     public void Stop(string name)
     {
-        Sound sound = Array.Find(sounds, sound => sound.name == name);
+        Sound sound = SearchSound(name);
         if (sound == null)
         {
             Debug.LogWarning("Sound " + name + " not found.");
             return;
         }
         sound.source.Stop();
+    }
+
+    public void Pause(string name)
+    {
+        Sound sound = SearchSound(name);
+        if (sound == null)
+        {
+            Debug.LogWarning("Sound " + name + " not found.");
+            return;
+        }
+        sound.source.Pause();
+    }
+
+    public Sound SearchSound(string name)
+    {
+        return Array.Find(sounds, sound => sound.name == name);
     }
 }

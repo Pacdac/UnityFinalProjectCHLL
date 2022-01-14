@@ -20,14 +20,16 @@ public class BabyAI : MonoBehaviour
     private int roomIndex = -1; // le mettre dans GameManager maybe
     int movePointType;
     private Transform tempMovePoint;
-
     private Collider currentDanger = null;
-
+    AudioSource babyAudioSource;
     private Animator animator;
 
     void Start()
     {
         animator = gameObject.transform.Find("BabyModel").GetComponent<Animator>();
+        babyAudioSource = GameObject.Find("/Baby/Baby").GetComponent<AudioSource>();
+        babyAudioSource.Play();
+
         GetNextRoomPoints();
         movePoint = pathPoints[pointIndex];
     }
@@ -67,8 +69,12 @@ public class BabyAI : MonoBehaviour
             // select another danger
             if (currentDanger == null || !currentDangerStillInRange)
             {
+                babyAudioSource.Pause();
                 FindObjectOfType<AudioManager>().Play("Laugh");
+                float babyLaughLength = FindObjectOfType<AudioManager>().SearchSound("Laugh").clip.length;
+                babyAudioSource.PlayDelayed(babyLaughLength); // PLAYDELAYED MARCHE PAS DONT ASK ME WHY
                 animator.SetBool("isMoving", true);
+
                 currentDanger = dangers[0];
                 tempMovePoint = movePoint;
                 movePoint = currentDanger.transform;
