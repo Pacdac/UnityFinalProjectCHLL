@@ -23,6 +23,7 @@ public class BabyAI : MonoBehaviour
     private Collider currentDanger = null;
     AudioSource babyAudioSource;
     private Animator animator;
+    bool isSettingNextPoint = false;
 
     void Start()
     {
@@ -31,7 +32,7 @@ public class BabyAI : MonoBehaviour
         babyAudioSource.Play();
 
         GetNextRoomPoints();
-        movePoint = pathPoints[pointIndex];
+        movePoint = pathPoints[++pointIndex];
     }
 
     void Update()
@@ -45,11 +46,12 @@ public class BabyAI : MonoBehaviour
     private void MoveToPoint()
     {
         
-        if (movePoint) // car update appel� avant le start (?!), donc movePoint null 
+        if (movePoint != null) // car update appel� avant le start (?!), donc movePoint null 
         {
             agent.SetDestination(movePoint.position);
         } else {
             //movePoint = gameObject.transform; // pour dire de mettre un truc et �viter erreurs
+            Debug.Log("hoooooooooooooooooooooooooooo");
         }
         
     }
@@ -117,10 +119,8 @@ public class BabyAI : MonoBehaviour
         bool isMovePointADanger = movePointType == 1;
         if (!isMovePointADanger)
         {
-            // distance between baby and object if danger, but distance = 0 if roomPoint
-            // for a danger: agent.remainingDistance <= agent.stoppingDistance
             bool hasReachPoint = agent.remainingDistance - agent.stoppingDistance <= 0;
-
+            //Debug.Log(movePoint.name + movePoint.position + " " + agent.destination + " " + agent.remainingDistance + " " + hasReachPoint);
             if (hasReachPoint)
             {
                 //Debug.Log("reached " + movePoint.name);
@@ -137,10 +137,12 @@ public class BabyAI : MonoBehaviour
         if (noMorePathPoints)
         {
             GetNextRoomPoints();
+            pointIndex++;
         }
         //Debug.Log(pointIndex + " " + pathPoints.Length);
         movePoint = pathPoints[pointIndex];
-        //Debug.Log("goto " + movePoint.name);
+        Debug.Log("goto " + movePoint.name);
+        MoveToPoint();
     }
 
 
@@ -161,7 +163,12 @@ public class BabyAI : MonoBehaviour
 
         Transform roomPathPoints = fixedPoints.transform.GetChild(roomIndex);
         pathPoints = roomPathPoints.GetComponentsInChildren<Transform>();
-        pointIndex = 1; // start at index 1, cause index 0 = the parent itself
+        pointIndex = 0; // start at index 1, cause index 0 = the parent itself
+        for(int i = 0; i < pathPoints.Length; i++)
+        {
+            Debug.Log(pathPoints[i].name);
+        }
+        
        // Debug.Log("1er point " + pathPoints[pointIndex]);
     }
 
