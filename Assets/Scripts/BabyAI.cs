@@ -23,6 +23,8 @@ public class BabyAI : MonoBehaviour
 
     private Collider currentDanger = null;
 
+    private Animator animator;
+
     void Start()
     {
         GetNextRoomPoints();
@@ -35,18 +37,17 @@ public class BabyAI : MonoBehaviour
         SetMoveToDangerIfInRange();
         MoveToPoint();
         SetNextPointIfHasReached();
-        Debug.Log(isWalking);
         babyAnimator.SetBool("isWalking", isWalking);
     }
 
     private void MoveToPoint()
     {
         
-        if (movePoint) // car update appelé avant le start (?!), donc movePoint null 
+        if (movePoint) // car update appelï¿½ avant le start (?!), donc movePoint null 
         {
             agent.SetDestination(movePoint.position);
         } else {
-            //movePoint = gameObject.transform; // pour dire de mettre un truc et éviter erreurs
+            //movePoint = gameObject.transform; // pour dire de mettre un truc et ï¿½viter erreurs
         }
         
     }
