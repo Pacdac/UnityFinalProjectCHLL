@@ -7,23 +7,18 @@ using UnityEngine.UI;
 
 public class BabyAI : MonoBehaviour
 {
-    // Suis les points de "paths", puis va chercher un danger random dans la
+
     [SerializeField] private GameObject fixedPoints; // room points
-    [SerializeField] private GameObject danger;
     [SerializeField] private NavMeshAgent agent;
     private Transform[] pathPoints;
-    private Transform[] dangerPoints;
     private Transform movePoint;
     private int pointIndex;
-    private float speed = 5f;
-    private float rotationSpeed = 200f;
-    private int roomIndex = -1; // le mettre dans GameManager maybe
+    private int roomIndex = -1;
     int movePointType;
     private Transform tempMovePoint;
     private Collider currentDanger = null;
     AudioSource babyAudioSource;
     private Animator animator;
-    bool isSettingNextPoint = false;
 
     void Start()
     {
@@ -37,7 +32,6 @@ public class BabyAI : MonoBehaviour
 
     void Update()
     {
-        
         SetMoveToDangerIfInRange();
         MoveToPoint();
         SetNextPointIfHasReached();
@@ -45,20 +39,14 @@ public class BabyAI : MonoBehaviour
 
     private void MoveToPoint()
     {
-        
-        if (movePoint != null) // car update appel� avant le start (?!), donc movePoint null 
+        if (movePoint != null)
         {
             agent.SetDestination(movePoint.position);
-        } else {
-            //movePoint = gameObject.transform; // pour dire de mettre un truc et �viter erreurs
-            Debug.Log("hoooooooooooooooooooooooooooo");
         }
-        
     }
 
     private void SetMoveToDangerIfInRange()
     {
-
         List<Collider> dangers = GameManager.DangersInRange;
 
         bool dangerInRange = dangers != null && dangers.Count > 0;
@@ -74,7 +62,7 @@ public class BabyAI : MonoBehaviour
                 babyAudioSource.Pause();
                 FindObjectOfType<AudioManager>().Play("Laugh");
                 float babyLaughLength = FindObjectOfType<AudioManager>().SearchSound("Laugh").clip.length;
-                babyAudioSource.PlayDelayed(babyLaughLength); // PLAYDELAYED MARCHE PAS DONT ASK ME WHY
+                babyAudioSource.PlayDelayed(babyLaughLength);
                 animator.SetBool("isMoving", true);
 
                 currentDanger = dangers[0];
@@ -103,7 +91,6 @@ public class BabyAI : MonoBehaviour
         }
 
         List<Collider> dangers = GameManager.DangersInRange;
-
         foreach (Collider danger in dangers)
         {
             if (danger.GetComponent<Transform>() == dangerToSearch.transform)
@@ -120,10 +107,8 @@ public class BabyAI : MonoBehaviour
         if (!isMovePointADanger)
         {
             bool hasReachPoint = agent.remainingDistance - agent.stoppingDistance <= 0;
-            //Debug.Log(movePoint.name + movePoint.position + " " + agent.destination + " " + agent.remainingDistance + " " + hasReachPoint);
             if (hasReachPoint)
             {
-                //Debug.Log("reached " + movePoint.name);
                 SetNextPoint();
             }
         }
@@ -141,10 +126,8 @@ public class BabyAI : MonoBehaviour
         }
         //Debug.Log(pointIndex + " " + pathPoints.Length);
         movePoint = pathPoints[pointIndex];
-        Debug.Log("goto " + movePoint.name);
         MoveToPoint();
     }
-
 
 
     private void GetNextRoomPoints()
@@ -153,23 +136,16 @@ public class BabyAI : MonoBehaviour
         bool noMoreRoom = roomIndex + 1 >= nbRooms;
         if (noMoreRoom)
         {
-            Debug.Log("FIN DU PARCOURS");
+            Debug.Log("End of the path");
             TurnOff();
             return;
         }
 
         roomIndex++;
-        Debug.Log("Room " + roomIndex);
 
         Transform roomPathPoints = fixedPoints.transform.GetChild(roomIndex);
         pathPoints = roomPathPoints.GetComponentsInChildren<Transform>();
         pointIndex = 0; // start at index 1, cause index 0 = the parent itself
-        for(int i = 0; i < pathPoints.Length; i++)
-        {
-            Debug.Log(pathPoints[i].name);
-        }
-        
-       // Debug.Log("1er point " + pathPoints[pointIndex]);
     }
 
     public void TurnOff()
