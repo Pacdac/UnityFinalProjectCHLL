@@ -33,14 +33,22 @@ public class HingeJointListener : MonoBehaviour
         if (angleWithMinLimit < angleBetweenThreshold)
         {
             if (hingeJointState != HingeJointState.Min)
+            {
                 OnMinLimitReached.Invoke();
+                FindObjectOfType<AudioManager>().Play("Close");
+            }
+                
             hingeJointState = HingeJointState.Min;
         }
         //Reached Max
         else if (angleWithMaxLimit < angleBetweenThreshold)
         {
             if (hingeJointState != HingeJointState.Max)
+            {
                 OnMaxLimitReached.Invoke();
+                FindObjectOfType<AudioManager>().Play("Open");
+            }
+                
             hingeJointState = HingeJointState.Max;
         }
         //No Limit reached

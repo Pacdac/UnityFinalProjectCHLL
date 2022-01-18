@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.XR.Interaction.Toolkit;
 
 [AddComponentMenu("Breakable Windows/Breakable Window")]
 [RequireComponent(typeof(AudioSource))]
@@ -173,9 +174,10 @@ public class BreakableWindow : MonoBehaviour {
         splinterParent.transform.position = new Vector3((float) 0.5,0,(float) 9.5);
         splinterParent.transform.parent = transform;
 
-        splinterParent.tag = "Carriable";
+        splinterParent.tag = "Dangerous";
         Rigidbody rigidbody = splinterParent.AddComponent<Rigidbody>();
         BoxCollider boxcollider = splinterParent.AddComponent<BoxCollider>();
+        splinterParent.AddComponent<XRGrabInteractable>();
         boxcollider.size = new Vector3(2,(float) 0.01, (float) 0.5);
         rigidbody.constraints = RigidbodyConstraints.FreezeRotation;
        	rigidbody.mass = 100;

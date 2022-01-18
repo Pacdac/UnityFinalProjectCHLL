@@ -6,15 +6,11 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
 
-    /*private static GameManager _instance;
-    private bool isDangerInRange = false;
-    private Transform currentDanger;
-    private GameManager()*/
-
-    private static bool isFacingDanger = false;
     private static bool isDangerInRange = false;
-    //private static Transform currentDanger;
     private static List<Collider> dangersInRange;
+    private static float babySpeed = 1.5f;
+    private static float playerSpeed = 2f;
+    private static float dangerMaxTime = 8f;
     public static GameObject carriedObject;
     public static GameObject carriableObject;
     public static GameObject interactableObject;
@@ -27,6 +23,24 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
+    public static void LoadMainMenu()
+    {
+        SceneManager.LoadScene(1);
+        Time.timeScale = 1;
+        timeAlive = 0f;
+        timeInDanger = 0f;
+        timeInVision = 0f;
+    }
+
+    public static void Retry()
+    {
+        SceneManager.LoadScene(2);
+        Time.timeScale = 1;
+        timeAlive = 0f;
+        timeInDanger = 0f;
+        timeInVision = 0f;
+    }
+
     public bool IsDangerInRange
     {
         get => isDangerInRange;
@@ -37,6 +51,27 @@ public class GameManager : MonoBehaviour
     {
         get => dangersInRange;
         set => dangersInRange = value;
+
+    }
+
+    public static float PlayerSpeed
+    {
+        get => playerSpeed;
+        set => playerSpeed = value;
+
+    }
+
+    public static float BabySpeed
+    {
+        get => babySpeed;
+        set => babySpeed = value;
+
+    }
+
+    public static float DangerMaxTime
+    {
+        get => dangerMaxTime;
+        set => dangerMaxTime = value;
 
     }
 

@@ -205,4 +205,59 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0817b2238b74819449cf893bf188c50f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sounds: []
+  sounds:
+  - clip: {fileID: 8300000, guid: bbd5f1d2204e5e74db709746bc0b0737, type: 3}
+    name: Laugh
+    volume: 0.2
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
+  - clip: {fileID: 8300000, guid: 47cd7999678d0e64e9f07f17f1b054ca, type: 3}
+    name: Dead
+    volume: 0.2
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
+  - clip: {fileID: 8300000, guid: 587e93674b4547944bb7f3c58a121836, type: 3}
+    name: ButtonHover
+    volume: 0.5
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
+  - clip: {fileID: 8300000, guid: 2409ea0f810225c459f17fa22cf4768e, type: 3}
+    name: ButtonClick
+    volume: 0.5
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
+  - clip: {fileID: 8300000, guid: 87aae6a6015bca147b017b611bdb5b23, type: 3}
+    name: FootSteps
+    volume: 0.2
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
+  - clip: {fileID: 8300000, guid: 7d9cffacd467a144bb6050a6f6f08dfd, type: 3}
+    name: PickUp
+    volume: 0.5
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
+  - clip: {fileID: 8300000, guid: b1c70203ef9207044860b85a9a38da90, type: 3}
+    name: Drop
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
+  - clip: {fileID: 8300000, guid: e84e469911fde7045bc4860ff5744487, type: 3}
+    name: Close
+    volume: 0.6
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
+  - clip: {fileID: 8300000, guid: 59a597e1d0786544c8892577326bfe14, type: 3}
+    name: Open
+    volume: 1
+    pitch: 1
+    source: {fileID: 0}
+    loop: 0
+  audioMixer: {fileID: 24300002, guid: 2565649c42a51424f8274887d7938708, type: 2}

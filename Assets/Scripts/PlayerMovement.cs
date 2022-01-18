@@ -37,26 +37,36 @@ public class PlayerMovement : MonoBehaviour
 
     private Vector3 inputForce;
     private float prevY;
+    private bool wasAlreadyWalking = false;
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyManager.Carry))
         {
+            // pick up
             if (CameraRaycast.isCarriable && GameManager.carriedObject == null)
             {
+                FindObjectOfType<AudioManager>().Play("PickUp");
                 GameManager.carriableObject.transform.parent = this.gameObject.transform;
                 GameManager.carriableObject.GetComponent<Rigidbody>().isKinematic = true;
                 GameManager.carriableObject.transform.localPosition = new Vector3(0f, 0.5f, 1f);
                 GameManager.carriedObject = GameManager.carriableObject;
             }
 
+            // open/close
             else if (CameraRaycast.isInteractable)
             {
+                bool isOpen = GameManager.interactableObject.GetComponent<InteractableAsset>().isOpen;
+                string strSound = isOpen ? "Close" : "Open";
+                FindObjectOfType<AudioManager>().Play(strSound);
+
                 GameManager.interactableObject.GetComponent<InteractableAsset>().onInteraction();
             }
 
+            // drop 
             else if (GameManager.carriedObject != null)
             {
+                FindObjectOfType<AudioManager>().Play("Drop");
                 GameManager.carriedObject.transform.SetParent(null);
                 GameManager.carriedObject.GetComponent<Rigidbody>().isKinematic = false;
                 GameManager.carriedObject = null;
@@ -69,6 +79,24 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKey(KeyManager.Crouch))
         {
             FindObjectOfType<AudioManager>().Play("StandUp");
+        }
+
+        /* if (enableMovement)
+         {
+             
+         }*/
+        bool isWalking = vInput > 0 || hInput > 0;
+        if (isWalking)
+        {
+            if (!wasAlreadyWalking)
+            {
+                FindObjectOfType<AudioManager>().Play("FootSteps");
+                wasAlreadyWalking = true;
+            }
+        } else
+        {
+            FindObjectOfType<AudioManager>().Stop("FootSteps");
+            wasAlreadyWalking = false;
         }
     }
 
@@ -93,6 +121,7 @@ public class PlayerMovement : MonoBehaviour
             if (GameManager.carriedObject != null)
                 GameManager.carriedObject.transform.localPosition = new Vector3(0f, 0f, 1f);
         } else if (Input.GetKey(KeyManager.Run)) {
+            
             inputForce = (transform.forward * vInput + transform.right * hInput).normalized * runSpeed;
             if (GameManager.carriedObject != null)
                 GameManager.carriedObject.transform.localPosition = new Vector3(0f, 0.5f, 1f);

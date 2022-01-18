@@ -11,6 +11,11 @@ public class VRBabyInteraction : MonoBehaviour
     private bool isDead = false;
     private float currentTime = 0f;
 
+    void Start()
+    {
+        maxTime = GameManager.DangerMaxTime;
+    }
+
     void OnDrawGizmosSelected()
     {
         // Draw a yellow sphere at the transform's position
@@ -75,6 +80,7 @@ public class VRBabyInteraction : MonoBehaviour
         if (currentTime > maxTime)
         {
             gameObject.GetComponent<Renderer>().material.SetColor("_Color", Color.red);
+            FindObjectOfType<AudioManager>().Play("Dead");
             GameManager.LoadNextLevel();
         }
     }
