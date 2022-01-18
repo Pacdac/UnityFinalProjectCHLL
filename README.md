@@ -11,3 +11,5 @@ https://assetstore.unity.com/packages/tools/particles-effects/breakable-windows-
 https://assetstore.unity.com/packages/3d/props/furniture/toon-furniture-88740
 https://assetstore.unity.com/packages/3d/props/children-s-wooden-toys-free-train-pack-179951
 https://assetstore.unity.com/packages/3d/props/clothing/accessories/hairdryer-165017
+https://assetstore.unity.com/packages/3d/props/tools/medicine-chest-free-pharmacy-set-199420
+https://assetstore.unity.com/packages/2d/textures-materials/wood/wooden-floor-materials-150564
