@@ -8,6 +8,7 @@ All the following assets must be installed in order for the game to work as inte
 It hasn't been pushed to Git to avoid making a too large repository.
 
 UNITY ASSETS LIST
+
 https://assetstore.unity.com/packages/3d/props/food/3d-props-adorable-foods-31249
 https://assetstore.unity.com/packages/3d/props/food-and-kitchen-props-pack-85050
 https://assetstore.unity.com/packages/3d/food-pack-3d-microgames-add-ons-163295
@@ -21,6 +22,7 @@ https://assetstore.unity.com/packages/3d/props/tools/medicine-chest-free-pharmac
 https://assetstore.unity.com/packages/2d/textures-materials/wood/wooden-floor-materials-150564
 
 Used for the exterior of the house (skybox and terrain) to make it less bland, shouldn't be mandatory
+
 https://assetstore.unity.com/packages/2d/textures-materials/sky/customizable-skybox-174576
 https://assetstore.unity.com/packages/3d/environments/landscapes/terrain-sample-asset-pack-145808
 https://assetstore.unity.com/packages/2d/textures-materials/nature/terrain-textures-pack-free-139542
