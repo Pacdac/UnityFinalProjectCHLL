@@ -14,6 +14,7 @@ public class VRBabyInteraction : MonoBehaviour
     void Start()
     {
         maxTime = GameManager.DangerMaxTime;
+        dangerBar.SetInitialTime(GameManager.DangerMaxTime);
     }
 
     void OnDrawGizmosSelected()
@@ -79,7 +80,6 @@ public class VRBabyInteraction : MonoBehaviour
     {
         if (currentTime > maxTime)
         {
-            gameObject.GetComponent<Renderer>().material.SetColor("_Color", Color.red);
             FindObjectOfType<AudioManager>().Play("Dead");
             GameManager.LoadNextLevel();
         }
